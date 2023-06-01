@@ -1,0 +1,15 @@
+C:\Users\ricid\www\senac\pig-app\bin\Debug\net7.0-windows\pig-app.exe
+C:\Users\ricid\www\senac\pig-app\bin\Debug\net7.0-windows\pig-app.deps.json
+C:\Users\ricid\www\senac\pig-app\bin\Debug\net7.0-windows\pig-app.runtimeconfig.json
+C:\Users\ricid\www\senac\pig-app\bin\Debug\net7.0-windows\pig-app.dll
+C:\Users\ricid\www\senac\pig-app\bin\Debug\net7.0-windows\pig-app.pdb
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\pig-app.csproj.AssemblyReference.cache
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\pig-app.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\pig-app.AssemblyInfoInputs.cache
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\pig-app.AssemblyInfo.cs
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\pig-app.csproj.CoreCompileInputs.cache
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\pig-app.dll
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\refint\pig-app.dll
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\pig-app.pdb
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\pig-app.genruntimeconfig.cache
+C:\Users\ricid\www\senac\pig-app\obj\Debug\net7.0-windows\ref\pig-app.dll
