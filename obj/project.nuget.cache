@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NNkvBx8aA7YodZ0Jq7O8R8jSNq9X+xpEt9zYq1xa5mEyiB4CIj0bRmXqHgFU8kmdaro/VcLXAIcqq5Zib9Tq0w==",
+  "dgSpecHash": "dZ7mnBdPd09nCfDu/rSbNNEPp1h3wYgwXBNC92XPthGaQXb3XiGZ39qRFkbKEeIYncAvoVMuYeBxREKb2VvbrQ==",
   "success": true,
-  "projectFilePath": "c:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj",
+  "projectFilePath": "C:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ricid\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\ricid\\.nuget\\packages\\google.protobuf\\3.11.4\\google.protobuf.3.11.4.nupkg.sha512",
