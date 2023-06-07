@@ -3,7 +3,7 @@ namespace Views
     public class Example
     {
 
-        public static void create(Models.Example example)
+        public static void create(/* Models.Example example */)
         {
             Form form = new Form();
             form.Width = 500;
