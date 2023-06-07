@@ -31,5 +31,6 @@ $ dotnet run
 
 ---
 
-Desenvolvido por 
-[Ricardo Cidral Machado](https://www.linkedin.com/in/ricardo-cidral-machado/)
+Desenvolvido por <br/>
+[Ricardo Cidral Machado](https://www.linkedin.com/in/ricardo-cidral-machado/) <br/>
+[Rafael Farias de Souza](https://www.linkedin.com/in/rafael-farias-de-souza-111a36204/) <br/>
