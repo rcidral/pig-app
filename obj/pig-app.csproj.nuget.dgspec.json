@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj": {}
+    "C:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj": {}
   },
   "projects": {
-    "c:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj": {
+    "C:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj",
+        "projectUniqueName": "C:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj",
         "projectName": "pig-app",
-        "projectPath": "c:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj",
+        "projectPath": "C:\\Users\\ricid\\www\\senac\\pig-app\\pig-app.csproj",
         "packagesPath": "C:\\Users\\ricid\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\ricid\\www\\senac\\pig-app\\obj\\",
+        "outputPath": "C:\\Users\\ricid\\www\\senac\\pig-app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ricid\\AppData\\Roaming\\NuGet\\NuGet.Config"
