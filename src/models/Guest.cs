@@ -8,7 +8,7 @@ namespace Models {
 
         public string Name { get; set; }
 
-        public Date Birth { get; set; }
+        public DateOnly Birth { get; set; }
 
         public int Payment { get; set; }
 
@@ -16,7 +16,7 @@ namespace Models {
 
         public string MothersName { get; set; }
 
-        public Guest (string name, Date birth, int payment, int document, string mothersName) {
+        public Guest (string name, DateOnly birth, int payment, int document, string mothersName) {
             this.Name = name;
             this.Birth = birth;
             this.Payment = payment;
