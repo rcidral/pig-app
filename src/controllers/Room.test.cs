@@ -1,18 +1,17 @@
-using Models;
+using Controllers;
 
 namespace Tests {
-    public class RoomModel {
+    public class RoomController {
         public static void store() {
             try {
-                Models.Room room = new Models.Room(1, "101", "Quarto de casal", 100);
-                Models.Room.store(room);
+                Controllers.Room.store(new Models.Room(1, "101", "Quarto de casal", 100));
             } catch (System.Exception e) {
                 throw e;
             }
         }
         public static void index() {
             try {
-                List<Models.Room> rooms = Models.Room.index();
+                List<Models.Room> rooms = Controllers.Room.index();
                 
                 Form form = new Form();
                 form.Width = 500;
@@ -31,7 +30,7 @@ namespace Tests {
         }
         public static void show(int id) {
             try {
-                List<Models.Room> rooms = Models.Room.show(id);
+                List<Models.Room> rooms = Controllers.Room.show(id);
 
                 Form form = new Form();
                 form.Width = 500;
@@ -48,17 +47,16 @@ namespace Tests {
                 throw e;
             }
         }
-        public static void update(int id) {
+        public static void update(int id, Models.Room room) {
             try {
-                Models.Room room = new Models.Room(1, "99", "Quarto de solteiro", 100);
-                Models.Room.update(id, room);
+                Controllers.Room.update(id, new Models.Room(1, "99", "Quarto de solteiro", 100));
             } catch (System.Exception e) {
                 throw e;
             }
         }
         public static void destroy(int id) {
             try {
-                Models.Room.destroy(id);
+                Controllers.Room.destroy(id);
             } catch (System.Exception e) {
                 throw e;
             }

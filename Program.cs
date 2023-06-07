@@ -1,7 +1,7 @@
 namespace Program {
     class Program {
         static void Main(string[] args) {
-            Tests.Room.index();
+            Tests.RoomController.destroy(1);
         }
     }
 }
