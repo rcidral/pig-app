@@ -7,11 +7,14 @@ namespace Models {
         public string Number { get; set; }
         public string Description { get; set; }
         public int Value { get; set; }
-        public Room(int floor, string number, string description, int value) {
+        public string Color { get; set; }
+
+        public Room(int floor, string number, string description, int value, string color) {
             this.Floor = floor;
             this.Number = number;
             this.Description = description;
             this.Value = value;
+            this.Color = color;
         }
         public static void store(Room room) {
             try {
