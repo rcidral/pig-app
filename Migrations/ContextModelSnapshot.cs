@@ -49,7 +49,7 @@ namespace pigapp.Migrations
 
             modelBuilder.Entity("Models.Room", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Number")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -64,14 +64,10 @@ namespace pigapp.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("Number");
 
                     b.ToTable("Rooms");
                 });

@@ -4,7 +4,7 @@ namespace Tests {
     public class RoomModel {
         public static void store() {
             try {
-                Models.Room room = new Models.Room(1, "101", "Quarto de casal", 100, "Azul");
+                Models.Room room = new Models.Room(1, 101, "Quarto de casal", 100, "Azul");
                 Models.Room.store(room);
             } catch (System.Exception e) {
                 throw e;
@@ -50,7 +50,7 @@ namespace Tests {
         }
         public static void update(int id) {
             try {
-                Models.Room room = new Models.Room(1, "99", "Quarto de solteiro", 100, "Azul");
+                Models.Room room = new Models.Room(1, 99, "Quarto de solteiro", 100, "Azul");
                 Models.Room.update(id, room);
             } catch (System.Exception e) {
                 throw e;
