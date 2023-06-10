@@ -7,7 +7,7 @@ namespace Controllers{
                 List<Models.Product> existingProducts = Controllers.Product.index();
 
                 foreach (Models.Product existingProduct in existingProducts) {
-                    if (existingProduct.Name == product.name) {
+                    if (existingProduct.Name == product.Name) {
                         throw new System.Exception("Product already exists");
                     }
                 }
@@ -32,7 +32,7 @@ namespace Controllers{
         }
         public static void update(int id, Models.Product product){
             try{
-                Models.Product.Update(id, name, value);
+                Models.Product.Update(id, product);
             }catch (System.Exception e){
                 throw e;
             }

@@ -44,8 +44,8 @@ namespace Models{
             try{
             using(Context context = new Context()){
                 Product oldProduct = context.Products.Find(id);  
-                oldProduct.Value = product.Value; 
-                oldProduct.Name = product.Name;
+                oldProduct.Value = products.Value; 
+                oldProduct.Name = products.Name;
                 context.SaveChanges();
             }
             }catch(System.Exception e){
