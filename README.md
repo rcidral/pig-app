@@ -23,7 +23,7 @@ $ cd pig-app
 $ dotnet restore
 
 # Migrar as tabelas do banco de dados
-$ dotnet ef database update
+$ dotnet-ef database update
 
 # Iniciar o projeto
 $ dotnet run
