@@ -61,7 +61,7 @@ namespace Views
         {
             try{
                 Models.Product product = GetSelectedProduct(Option.Delete);
-                DialogResult result = MessageBox.Show("Do you really want to delete this product?" "Confirm deletion", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Do you really want to delete this product?", "Confirm deletion", MessageBoxButtons.YesNo);
                 if(result == DialogResult.Yes)
                 {
                     Controllers.Product.destroy(product);
