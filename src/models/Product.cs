@@ -40,7 +40,7 @@ namespace Models{
                 throw e;
             }
         }
-        public static void Update(int id, Product products){
+        public static void update(int id, Product products){
             try{
             using(Context context = new Context()){
                 Product oldProduct = context.Products.Find(id);  

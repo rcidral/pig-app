@@ -24,7 +24,7 @@ namespace Views
         {
             listProduct.Items.Clear();
 
-            List<Models.Product> list = Controllers.Product.Read();
+            List<Models.Product> list = Controllers.Product.index();
 
             foreach (Models.Product product in list)
             {
@@ -86,7 +86,7 @@ namespace Views
             if(listProduct.SelectedItems.Count > 0)
             {
                 int selectedProductId = int.Parse(listProduct.SelectedItems[0].Text);
-                return Controllers.Product.ReadById(selectedProductId);
+                return Controllers.Product.show(selectedProductId);
             }
             else{
                 throw new Exception($"Select a Product for {(option == Option.Update ? "udpate" : "delete")}");

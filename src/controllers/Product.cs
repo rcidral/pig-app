@@ -30,14 +30,14 @@ namespace Controllers{
                 throw e;
             }
         }
-        public static void update(int id, Models.Product product){
+        public static void update(int id){
             try{
-                Models.Product.Update(id, product);
+                Models.Product.update(id);
             }catch (System.Exception e){
                 throw e;
             }
         }
-        public static void destroy(int id, Models.Product product){
+        public static void destroy(int id){
             try{
                 Models.Product.destroy(id);
             }catch (System.Exception e){
