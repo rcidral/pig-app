@@ -64,7 +64,7 @@ namespace Views
                 DialogResult result = MessageBox.Show("Do you really want to delete this product?", "Confirm deletion", MessageBoxButtons.YesNo);
                 if(result == DialogResult.Yes)
                 {
-                    Controllers.Product.destroy(product);
+                    Controllers.Product.destroy(product.Id);
                     RefreshList();
                 }
             }
@@ -86,7 +86,8 @@ namespace Views
             if(listProduct.SelectedItems.Count > 0)
             {
                 int selectedProductId = int.Parse(listProduct.SelectedItems[0].Text);
-                return Controllers.Product.show(selectedProductId);
+                List<Models.Product> products = Controllers.Product.show(selectedProductId);
+                return products.FirstOrDefault();
             }
             else{
                 throw new Exception($"Select a Product for {(option == Option.Update ? "udpate" : "delete")}");
