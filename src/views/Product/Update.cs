@@ -22,7 +22,7 @@ namespace Views
             productToUpdate.Name = this.txtName.Text;
             productToUpdate.Value = Convert.ToDouble(this.txtValue.Text);
 
-            Controllers.Product.update(productToUpdate.Id);
+            Controllers.Product.update(productToUpdate.Id, productToUpdate);
 
             List Product = Application.OpenForms.OfType<List>().FirstOrDefault();
             if(Product != null)

@@ -101,13 +101,15 @@ namespace Views
 
         public List()
         {
+            this.Icon = new Icon("Assets/logoUm.ico", 52, 52);
+
             this.Text = "Products";
             this.Size = new Size(800, 450);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
-            this.ShowIcon = false;
+            this.ShowIcon = true;
             this.ShowInTaskbar = false;
 
             listProduct = new ListView();
