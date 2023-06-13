@@ -9,6 +9,7 @@ namespace Database
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseMySql(connection, ServerVersion.AutoDetect(connection));
     }
