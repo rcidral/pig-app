@@ -15,18 +15,21 @@ namespace Views
 
         public void btCrt_Click(object sender, EventArgs e)
         {
-            if(
+            if (
                 txtName.Text == "" ||
                 txtValue.Text == ""
-            ){
+            )
+            {
                 MessageBox.Show("Fill out the fields correctly.");
                 return;
-            }else{
+            }
+            else
+            {
                 Models.Product product = new Models.Product
                 (
                     Convert.ToInt32(txtId),
                     txtName.Text,
-                    Convert.ToDouble(txtValue.Text) 
+                    Convert.ToDouble(txtValue.Text)
                 );
 
                 Controllers.Product.Store(product);
@@ -36,7 +39,7 @@ namespace Views
             }
 
             List Product = Application.OpenForms.OfType<List>().FirstOrDefault();
-            if(Product != null)
+            if (Product != null)
             {
                 Product.RefreshList();
             }
@@ -67,7 +70,7 @@ namespace Views
             this.lblId.Size = new Size(50, 20);
 
             this.txtId = new TextBox();
-            this.txtId.Location = new Point(80 ,40);
+            this.txtId.Location = new Point(80, 40);
             this.txtId.Size = new Size(150, 20);
 
             this.lblName = new Label();

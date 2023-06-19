@@ -209,7 +209,7 @@ namespace Views
             Color colorButtonDelete = System.Drawing.ColorTranslator.FromHtml("#F7F7F7");
             buttonDelete.BackColor = colorButtonDelete;
             buttonDelete.Click += (sender, args) =>
-            {   
+            {
                 list.Close();
                 list.Dispose();
                 deleteRoom();
@@ -226,9 +226,9 @@ namespace Views
             {
                 list.Close();
                 list.Dispose();
-                
+
             };
-            
+
             list.Controls.Add(buttonReturn);
             list.Controls.Add(buttonDelete);
             list.Controls.Add(buttonEdit);
