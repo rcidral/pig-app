@@ -27,7 +27,6 @@ namespace Views
             {
                 Models.Product product = new Models.Product
                 (
-                    Convert.ToInt32(txtId),
                     txtName.Text,
                     Convert.ToDouble(txtValue.Text)
                 );
