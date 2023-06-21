@@ -35,3 +35,4 @@ Desenvolvido por <br/>
 [Ricardo Cidral Machado](https://www.linkedin.com/in/ricardo-cidral-machado/) <br/>
 [Rafael Farias de Souza](https://www.linkedin.com/in/rafael-farias-de-souza-111a36204/) <br/>
 [Joao Ignacio Castro Franco](https://www.linkedin.com/in/joao-ignacio-castro-franco-634873232/ ) <br/>
+[Gabriel Sousa de Oliveira](https://github.com/gaturama/ ) <br/>
