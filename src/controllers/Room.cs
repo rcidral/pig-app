@@ -46,22 +46,22 @@ namespace Controllers
                 throw e;
             }
         }
-        public static void update(int id, Models.Room room)
+        public static void update(int number, Models.Room room)
         {
             try
             {
-                Models.Room.update(id, room);
+                Models.Room.update(number, room);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static void destroy(int id)
+        public static void destroy(int number)
         {
             try
             {
-                Models.Room.destroy(id);
+                Models.Room.destroy(number);
             }
             catch (System.Exception e)
             {
