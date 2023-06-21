@@ -101,7 +101,7 @@ namespace Views
 
         public List()
         {
-            this.Icon = new Icon("Assets/logoUm.ico", 52, 52);
+            // this.Icon = new Icon("Assets/logoUm.ico", 52, 52);
 
             this.Text = "Products";
             this.Size = new Size(800, 450);
