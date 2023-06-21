@@ -180,8 +180,8 @@ namespace pigapp.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
+                    b.Property<double>("Value")
+                        .HasColumnType("double");
 
                     b.HasKey("Number");
 

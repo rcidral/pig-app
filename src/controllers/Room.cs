@@ -57,6 +57,18 @@ namespace Controllers
                 throw e;
             }
         }
+        
+        public static void updateValue(int number,double value)
+        {
+            try
+            {
+                Models.Room.updateValue(number,value);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
         public static void destroy(int number)
         {
             try

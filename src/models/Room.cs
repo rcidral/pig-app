@@ -9,10 +9,10 @@ namespace Models
         public int Number { get; set; }
         public int Floor { get; set; }
         public string Description { get; set; }
-        public int Value { get; set; }
+        public double Value { get; set; }
         public string Color { get; set; }
 
-        public Room(int floor, int number, string description, int value, string color)
+        public Room(int floor, int number, string description, double value, string color)
         {
             this.Floor = floor;
             this.Number = number;
@@ -74,6 +74,23 @@ namespace Models
                     oldRoom.Number = room.Number;
                     oldRoom.Description = room.Description;
                     oldRoom.Value = room.Value;
+                    context.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void updateValue(int number, double value)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    Room oldRoom = context.Rooms.Find(number);
+                    oldRoom.Value = value;
                     context.SaveChanges();
                 }
             }
