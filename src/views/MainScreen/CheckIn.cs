@@ -58,7 +58,7 @@ namespace Views
                 DateTime checkOut = checkIn.AddDays(daysStay);
                 int client = Convert.ToInt32(clientCbo.SelectedValue);
                 int room = Convert.ToInt32(roomLabel.Text);
-                Controller.store(checkIn, checkOut, client, room);
+                // Controller.store(checkIn, checkOut, client, room);
                 MessageBox.Show("Reserva realizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }

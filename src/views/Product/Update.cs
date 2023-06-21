@@ -25,7 +25,7 @@ namespace Views
             Controllers.Product.update(productToUpdate.Id, productToUpdate);
 
             List Product = Application.OpenForms.OfType<List>().FirstOrDefault();
-            if(Product != null)
+            if (Product != null)
             {
                 Product.RefreshList();
             }
@@ -51,7 +51,7 @@ namespace Views
             this.lblId.Size = new Size(50, 20);
 
             this.txtId = new TextBox();
-            this.txtId.Location = new Point(80 ,40);
+            this.txtId.Location = new Point(80, 40);
             this.txtId.Size = new Size(150, 20);
 
             this.lblName = new Label();
@@ -71,7 +71,7 @@ namespace Views
             this.txtValue = new TextBox();
             this.txtValue.Location = new Point(80, 100);
             this.txtValue.Size = new Size(150, 20);
-            
+
             this.btUpd = new Button();
             this.btUpd.Text = "Add";
             this.btUpd.Location = new Point(10, 150);

@@ -1,67 +1,92 @@
 using Database;
 
-namespace Models{
-    public class Product{
+namespace Models
+{
+    public class Product
+    {
         public int Id { get; set; }
         public string Name { get; set; }
         public double Value { get; set; }
-        
 
-        public Product(int id, string name, double value){
-            this.Id = id;
+
+        public Product(string name, double value)
+        {
             this.Name = name;
             this.Value = value;
         }
-        public static void Store(Product product){
-            try{
-            using (Context context = new Context()){
-                context.Products.Add(product);
-                context.SaveChanges();
+        public static void Store(Product product)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    context.Products.Add(product);
+                    context.SaveChanges();
+                }
             }
-            }catch(System.Exception e){
+            catch (System.Exception e)
+            {
                 throw e;
             }
         }
-        public static List<Product> index(){
-            try{
-               using (Context context = new Context()){
+        public static List<Product> index()
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
                     return context.Products.ToList();
-               } 
-            }catch(System.Exception e){
+                }
+            }
+            catch (System.Exception e)
+            {
                 throw e;
             }
         }
-        public static List<Product> show(int id){
-            try{
-                using(Context context = new Context()){
+        public static List<Product> show(int id)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
                     return context.Products.Where(Product => Product.Id == id).ToList();
                 }
-            }catch(System.Exception e){
+            }
+            catch (System.Exception e)
+            {
                 throw e;
             }
         }
-        public static void update(int id, Product products){
-            try{
-            using(Context context = new Context()){
-                Product oldProduct = context.Products.Find(id);  
-                oldProduct.Value = products.Value; 
-                oldProduct.Name = products.Name;
-                context.SaveChanges();
+        public static void update(int id, Product products)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    Product oldProduct = context.Products.Find(id);
+                    oldProduct.Value = products.Value;
+                    oldProduct.Name = products.Name;
+                    context.SaveChanges();
+                }
             }
-            }catch(System.Exception e){
+            catch (System.Exception e)
+            {
                 throw e;
             }
         }
-        public static void destroy(int id){
-            try{
-               using (Context context = new Context()){
+        public static void destroy(int id)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
                     Product product = context.Products.Find(id);
                     context.Products.Remove(product);
                     context.SaveChanges();
-               }
+                }
             }
             catch (System.Exception e)
-            { 
+            {
                 throw e;
             }
         }

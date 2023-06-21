@@ -2,55 +2,48 @@ using Models;
 
 namespace Controllers
 {
-    public class Guest
-    {
-        public static void store(Models.Guest guest)
-        {
-            try
-            {
-                List<Models.Guest> existingGuests = Controllers.Guest.index();
 
-                foreach (Models.Guest existingGuest in existingGuests)
-                {
-                    if (existingGuest.Document == guest.Document)
-                    {
-                        throw new System.Exception("Guest already exists");
-                    }
-                }
-                Models.Guest.store(guest);
+    public class Expenses
+    {
+
+        public static void store(Models.Expenses expenses)
+        {
+            try
+            {
+                Models.Expenses.store(expenses);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static List<Models.Guest> index()
+        public static List<Models.Expenses> index()
         {
             try
             {
-                return Models.Guest.index();
+                return Models.Expenses.index();
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static List<Models.Guest> show(int id)
+        public static List<Models.Expenses> show(int id)
         {
             try
             {
-                return Models.Guest.show(id);
+                return Models.Expenses.show(id);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static void update(int id, Models.Guest guest)
+        public static void update(int id, Models.Expenses expenses)
         {
             try
             {
-                Models.Guest.update(id, guest);
+                Models.Expenses.update(id, expenses);
             }
             catch (System.Exception e)
             {
@@ -61,12 +54,14 @@ namespace Controllers
         {
             try
             {
-                Models.Guest.destroy(id);
+                Models.Expenses.destroy(id);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
+
     }
 }
+

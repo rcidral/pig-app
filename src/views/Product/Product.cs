@@ -5,12 +5,12 @@ namespace Views
 {
     public class List : Form
     {
-        public enum Option {Update, Delete}
+        public enum Option { Update, Delete }
         ListView listProduct;
 
         private void AddListView(Models.Product product)
         {
-            string[]row = {
+            string[] row = {
                 product.Id.ToString(),
                 product.Name,
                 product.Value.ToString()
@@ -40,18 +40,19 @@ namespace Views
 
         private void btUpd_Click(object sender, EventArgs e)
         {
-            try{
-                
+            try
+            {
+
                 Models.Product product = GetSelectedProduct(Option.Update);
                 RefreshList();
                 var ProductUpdateView = new Views.Update(product);
-                if(ProductUpdateView.ShowDialog() == DialogResult.OK);
+                if (ProductUpdateView.ShowDialog() == DialogResult.OK) ;
                 {
                     RefreshList();
                     MessageBox.Show("Product edited successfully.");
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
@@ -59,18 +60,19 @@ namespace Views
 
         private void btDelete_Click(object sender, EventArgs e)
         {
-            try{
+            try
+            {
                 Models.Product product = GetSelectedProduct(Option.Delete);
                 DialogResult result = MessageBox.Show("Do you really want to delete this product?", "Confirm deletion", MessageBoxButtons.YesNo);
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     Controllers.Product.destroy(product.Id);
                     RefreshList();
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-                if(err.InnerException != null)
+                if (err.InnerException != null)
                 {
                     MessageBox.Show(err.InnerException.Message);
                 }
@@ -83,13 +85,14 @@ namespace Views
 
         public Models.Product GetSelectedProduct(Option option)
         {
-            if(listProduct.SelectedItems.Count > 0)
+            if (listProduct.SelectedItems.Count > 0)
             {
                 int selectedProductId = int.Parse(listProduct.SelectedItems[0].Text);
                 List<Models.Product> products = Controllers.Product.show(selectedProductId);
                 return products.FirstOrDefault();
             }
-            else{
+            else
+            {
                 throw new Exception($"Select a Product for {(option == Option.Update ? "udpate" : "delete")}");
             }
         }

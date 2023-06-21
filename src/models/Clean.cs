@@ -3,37 +3,30 @@ using Database;
 namespace Models
 {
 
-    public class Guest
+    public class Clean
     {
-
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public int RoomId { get; set; }
 
-        public DateTime Birth { get; set; }
+        public int EmployeeId { get; set; }
 
-        public int Payment { get; set; }
+        public DateTime Date { get; set; }
 
-        public int Document { get; set; }
-
-        public string MothersName { get; set; }
-
-        public Guest(string name, DateTime birth, int payment, int document, string mothersName)
+        public Clean(int roomId, int employeeId)
         {
-            this.Name = name;
-            this.Birth = birth;
-            this.Payment = payment;
-            this.Document = document;
-            this.MothersName = mothersName;
+            this.RoomId = roomId;
+            this.EmployeeId = employeeId;
+            this.Date = DateTime.Now;
         }
 
-        public static void store(Guest guest)
+        public static void store(Clean clean)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    context.Guests.Add(guest);
+                    context.Cleans.Add(clean);
                     context.SaveChanges();
                 }
             }
@@ -43,13 +36,13 @@ namespace Models
             }
         }
 
-        public static List<Guest> index()
+        public static List<Clean> index()
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    return context.Guests.ToList();
+                    return context.Cleans.ToList();
                 }
             }
             catch (System.Exception e)
@@ -58,13 +51,13 @@ namespace Models
             }
         }
 
-        public static List<Guest> show(int id)
+        public static Clean show(int id)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    return context.Guests.Where(guest => guest.Id == id).ToList();
+                    return context.Cleans.Find(id);
                 }
             }
             catch (System.Exception e)
@@ -73,18 +66,16 @@ namespace Models
             }
         }
 
-        public static void update(int id, Guest guest)
+        public static void update(int id, Clean clean)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Guest oldGuest = context.Guests.Find(id);
-                    oldGuest.Name = guest.Name;
-                    oldGuest.Birth = guest.Birth;
-                    oldGuest.Payment = guest.Payment;
-                    oldGuest.Document = guest.Document;
-                    oldGuest.MothersName = guest.MothersName;
+                    Clean oldClean = context.Cleans.Find(id);
+                    oldClean.RoomId = clean.RoomId;
+                    oldClean.EmployeeId = clean.EmployeeId;
+                    oldClean.Date = clean.Date;
                     context.SaveChanges();
                 }
             }
@@ -100,8 +91,8 @@ namespace Models
             {
                 using (Context context = new Context())
                 {
-                    Guest guest = context.Guests.Find(id);
-                    context.Guests.Remove(guest);
+                    Clean clean = context.Cleans.Find(id);
+                    context.Cleans.Remove(clean);
                     context.SaveChanges();
                 }
             }

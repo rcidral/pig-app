@@ -3,37 +3,33 @@ using Database;
 namespace Models
 {
 
-    public class Guest
+    public class Expenses
     {
 
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Reservation Reservation { get; set; }
+        public int ProductId { get; set; }
+        public int ReservationId { get; set; }
+        public DateTime Date { get; set; }
+        public double Value { get; set; }
 
-        public DateTime Birth { get; set; }
-
-        public int Payment { get; set; }
-
-        public int Document { get; set; }
-
-        public string MothersName { get; set; }
-
-        public Guest(string name, DateTime birth, int payment, int document, string mothersName)
+        public Expenses(int productId, int reservationId, double value)
         {
-            this.Name = name;
-            this.Birth = birth;
-            this.Payment = payment;
-            this.Document = document;
-            this.MothersName = mothersName;
+            this.ProductId = productId;
+            this.ReservationId = reservationId;
+            this.Date = DateTime.Now;
+            this.Value = value;
         }
 
-        public static void store(Guest guest)
+        public static void store(Expenses expenses)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    context.Guests.Add(guest);
+                    context.Expenses.Add(expenses);
                     context.SaveChanges();
                 }
             }
@@ -43,13 +39,13 @@ namespace Models
             }
         }
 
-        public static List<Guest> index()
+        public static List<Expenses> index()
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    return context.Guests.ToList();
+                    return context.Expenses.ToList();
                 }
             }
             catch (System.Exception e)
@@ -58,13 +54,13 @@ namespace Models
             }
         }
 
-        public static List<Guest> show(int id)
+        public static List<Expenses> show(int id)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    return context.Guests.Where(guest => guest.Id == id).ToList();
+                    return context.Expenses.Where(expenses => expenses.Id == id).ToList();
                 }
             }
             catch (System.Exception e)
@@ -73,19 +69,17 @@ namespace Models
             }
         }
 
-        public static void update(int id, Guest guest)
+        public static void update(int id, Expenses expenses)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Guest oldGuest = context.Guests.Find(id);
-                    oldGuest.Name = guest.Name;
-                    oldGuest.Birth = guest.Birth;
-                    oldGuest.Payment = guest.Payment;
-                    oldGuest.Document = guest.Document;
-                    oldGuest.MothersName = guest.MothersName;
-                    context.SaveChanges();
+                    Expenses oldExpenses = context.Expenses.Find(id);
+                    oldExpenses.Product = expenses.Product;
+                    oldExpenses.Reservation = expenses.Reservation;
+                    oldExpenses.Date = expenses.Date;
+                    oldExpenses.Value = expenses.Value;
                 }
             }
             catch (System.Exception e)
@@ -100,8 +94,8 @@ namespace Models
             {
                 using (Context context = new Context())
                 {
-                    Guest guest = context.Guests.Find(id);
-                    context.Guests.Remove(guest);
+                    Expenses expenses = context.Expenses.Find(id);
+                    context.Expenses.Remove(expenses);
                     context.SaveChanges();
                 }
             }
@@ -110,5 +104,6 @@ namespace Models
                 throw e;
             }
         }
+
     }
 }
