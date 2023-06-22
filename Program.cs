@@ -4,7 +4,7 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Views.Room.ListarQuartos();
+            
         }
     }
 }

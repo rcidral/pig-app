@@ -42,14 +42,13 @@ namespace Views
         {
             try
             {
-
                 Models.Product product = GetSelectedProduct(Option.Update);
                 RefreshList();
                 var ProductUpdateView = new Views.Update(product);
-                if (ProductUpdateView.ShowDialog() == DialogResult.OK) ;
+                if (ProductUpdateView.ShowDialog() == DialogResult.OK)
                 {
                     RefreshList();
-                    MessageBox.Show("Product edited successfully.");
+                    MessageBox.Show("Product updated successfully.");
                 }
             }
             catch (Exception err)
@@ -63,7 +62,7 @@ namespace Views
             try
             {
                 Models.Product product = GetSelectedProduct(Option.Delete);
-                DialogResult result = MessageBox.Show("Do you really want to delete this product?", "Confirm deletion", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Do you want to delete this product?", "Confirm deletion", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     Controllers.Product.destroy(product.Id);
@@ -112,17 +111,20 @@ namespace Views
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
+            Color color = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
             this.ShowIcon = true;
             this.ShowInTaskbar = false;
+            this.Font = new System.Drawing.Font("Arial", 25, System.Drawing.FontStyle.Bold);
 
             listProduct = new ListView();
             listProduct.Size = new Size(680, 260);
             listProduct.Location = new Point(50, 50);
             listProduct.View = View.Details;
-            listProduct.Columns.Add("Id");
-            listProduct.Columns.Add("Name");
-            listProduct.Columns.Add("Value");
+            listProduct.Columns.Add("Id", -2, HorizontalAlignment.Left);
+            listProduct.Columns.Add("Name", -2, HorizontalAlignment.Left);
+            listProduct.Columns.Add("Value", -2, HorizontalAlignment.Left);
             listProduct.FullRowSelect = true;
+            listProduct.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(listProduct);
 
             RefreshList();
@@ -132,6 +134,7 @@ namespace Views
             btCrt.Size = new Size(100, 30);
             btCrt.Location = new Point(50, 330);
             btCrt.Click += new EventHandler(btCrt_Click);
+            btCrt.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(btCrt);
 
             Button btUpd = new Button();
@@ -139,6 +142,7 @@ namespace Views
             btUpd.Size = new Size(100, 30);
             btUpd.Location = new Point(170, 330);
             btUpd.Click += new EventHandler(btUpd_Click);
+            btUpd.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(btUpd);
 
             Button btDelete = new Button();
@@ -146,6 +150,7 @@ namespace Views
             btDelete.Size = new Size(100, 30);
             btDelete.Location = new Point(290, 330);
             btDelete.Click += new EventHandler(btDelete_Click);
+            btDelete.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(btDelete);
 
             Button btClose = new Button();
@@ -153,6 +158,7 @@ namespace Views
             btClose.Size = new Size(100, 30);
             btClose.Location = new Point(290, 330);
             btClose.Click += new EventHandler(btClose_Click);
+            btClose.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(btClose);
         }
     }
