@@ -15,15 +15,7 @@ namespace Views
 
         public void btCrt_Click(object sender, EventArgs e)
         {
-            if (
-                txtName.Text == "" ||
-                txtValue.Text == ""
-            )
-            {
-                MessageBox.Show("Fill out the fields correctly.");
-                return;
-            }
-            else
+            try
             {
                 Models.Product product = new Models.Product
                 (
@@ -35,6 +27,9 @@ namespace Views
 
                 MessageBox.Show("Product registered successfully.");
                 ClearForm();
+            }catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
 
             List Product = Application.OpenForms.OfType<List>().FirstOrDefault();
