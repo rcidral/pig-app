@@ -16,7 +16,6 @@ namespace Views
         public TextBox TxtDocument;
         public TextBox TxtMothersName;
         public Button btCreate;
-        public Button btCancel;
 
         public Models.Guest guest;
 
@@ -37,9 +36,6 @@ namespace Views
                 Guest.RefreshList();
             }
             this.Close();
-
-
-
         }
 
         public UpdateGuest(Models.Guest guest)
@@ -118,12 +114,6 @@ namespace Views
             btCreate.Size = new System.Drawing.Size(80, 30);
             btCreate.Click += new EventHandler(btUpd_Click);
             this.Controls.Add(btCreate);
-
-            btCancel = new Button();
-            btCancel.Text = "Cancel";
-            btCancel.Location = new System.Drawing.Point(120, 220);
-            btCancel.Size = new System.Drawing.Size(80, 30);
-            this.Controls.Add(btCancel);
         }
 
     }

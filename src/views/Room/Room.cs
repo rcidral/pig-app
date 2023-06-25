@@ -113,16 +113,10 @@ namespace Views
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
-            Color color = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+            Color color = System.Drawing.ColorTranslator.FromHtml("#E7E7E7");
             this.ShowIcon = true;
             this.ShowInTaskbar = false;
             this.BackColor = color;
-
-            Label lblRoom = new Label();
-            lblRoom.Text = "Room";
-            lblRoom.Location = new Point(50, 100);
-            lblRoom.Size = new Size(100, 30);
-            lblRoom.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
 
             listRoom = new ListView();
             listRoom.Size = new Size(680, 260);
@@ -134,14 +128,19 @@ namespace Views
             listRoom.Columns.Add("Description", -2, HorizontalAlignment.Left);
             listRoom.Columns.Add("Value", -2, HorizontalAlignment.Left);
             listRoom.Columns.Add("Color", -2, HorizontalAlignment.Left);
+            listRoom.Columns[0].Width = 30;
+            listRoom.Columns[1].Width = 50;
+            listRoom.Columns[2].Width = 70;
+            listRoom.Columns[3].Width = 100;
+            listRoom.Columns[4].Width = 80;
+            listRoom.Columns[5].Width = 60;
             listRoom.FullRowSelect = true;
-            listRoom.Font = new System.Drawing.Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(listRoom);
 
             Panel panelList = new Panel();
             panelList.Size = new Size(100, 30);
             panelList.Location = new Point(50, 330);
-            Color color2 = System.Drawing.ColorTranslator.FromHtml("#F7F7F7");
+            Color color2 = System.Drawing.ColorTranslator.FromHtml("#00000");
             panelList.BackColor = color2;
 
             RefreshList();
@@ -151,7 +150,6 @@ namespace Views
             btCrt.Size = new Size(100, 30);
             btCrt.Location = new Point(50, 330);
             btCrt.Click += new EventHandler(btCrt_Click);
-            btCrt.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(btCrt);
 
             Button btUpdate = new Button();
@@ -159,7 +157,6 @@ namespace Views
             btUpdate.Size = new Size(100, 30);
             btUpdate.Location = new Point(170, 330);
             btUpdate.Click += new EventHandler(btUpdateate_Click);
-            btUpdate.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(btUpdate);
 
             Button btDelete = new Button();
@@ -167,15 +164,13 @@ namespace Views
             btDelete.Size = new Size(100, 30);
             btDelete.Location = new Point(290, 330);
             btDelete.Click += new EventHandler(btDelete_Click);
-            btDelete.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(btDelete);
 
             Button btClose = new Button();
             btClose.Text = "Return";
             btClose.Size = new Size(100, 30);
-            btClose.Location = new Point(290, 330);
+            btClose.Location = new Point(410, 330);
             btClose.Click += new EventHandler(btClose_Click);
-            btClose.Font = new Font("Arial", 12, System.Drawing.FontStyle.Bold);
             this.Controls.Add(btClose);
         }
     }

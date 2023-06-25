@@ -22,6 +22,8 @@ namespace Views
 
             };
 
+            ListViewItem item = new ListViewItem(row);
+            listGuest.Items.Add(item);
         }
 
         public void RefreshList()
@@ -38,7 +40,7 @@ namespace Views
 
         private void btCrt_Click(object sender, EventArgs e)
         {
-            var Create = new Views.Create();
+            var Create = new Views.CreateGuest();
             Create.Show();
         }
 
@@ -114,13 +116,32 @@ namespace Views
             this.Icon = new Icon("Assets/logoUm.ico", 52, 52);
 
             this.Text = "Guest";
-            this.Size = new Size (680, 260);
+            this.Size = new Size (800, 450);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.ShowIcon = true;
             this.ShowInTaskbar = false;
+
+            listGuest = new ListView();
+            listGuest.Size = new Size(680, 260);
+            listGuest.Location = new Point(50,50);
+            listGuest.View = View.Details;
+            listGuest.Columns.Add("Id");
+            listGuest.Columns.Add("Name");
+            listGuest.Columns.Add("Birth");
+            listGuest.Columns.Add("Payment");
+            listGuest.Columns.Add("Document");
+            listGuest.Columns.Add("Mother's Name");
+            listGuest.Columns[0].Width = 30;
+            listGuest.Columns[1].Width = 60;
+            listGuest.Columns[2].Width = 60;
+            listGuest.Columns[3].Width = 80;
+            listGuest.Columns[4].Width = 80;
+            listGuest.Columns[5].Width = 120;
+            listGuest.FullRowSelect = true;
+            this.Controls.Add(listGuest);
 
             RefreshList();
 
@@ -148,12 +169,10 @@ namespace Views
             Button btClose = new Button();
             btClose.Text = "Return";
             btClose.Size = new Size(100, 30);
-            btClose.Location = new Point(290, 330);
+            btClose.Location = new Point(410, 330);
             btClose.Click += new EventHandler(btClose_Click);
             this.Controls.Add(btClose);
 
         }
-
-
     }
 }
