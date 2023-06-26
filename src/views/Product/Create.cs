@@ -3,7 +3,7 @@ using Models;
 
 namespace Views
 {
-    public class Create : Form
+    public class CreateProduct : Form
     {
         public Label lblId;
         public TextBox txtId;
@@ -15,15 +15,7 @@ namespace Views
 
         public void btCrt_Click(object sender, EventArgs e)
         {
-            if (
-                txtName.Text == "" ||
-                txtValue.Text == ""
-            )
-            {
-                MessageBox.Show("Fill out the fields correctly.");
-                return;
-            }
-            else
+            try
             {
                 Models.Product product = new Models.Product
                 (
@@ -35,6 +27,9 @@ namespace Views
 
                 MessageBox.Show("Product registered successfully.");
                 ClearForm();
+            }catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
 
             List Product = Application.OpenForms.OfType<List>().FirstOrDefault();
@@ -52,16 +47,17 @@ namespace Views
             txtValue.Clear();
         }
 
-        public Create()
+        public CreateProduct()
         {
             this.Text = "Register a product";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            Color color = System.Drawing.ColorTranslator.FromHtml("#E7E7E7");
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Size = new System.Drawing.Size(280, 360);
+            this.Size = new System.Drawing.Size(300, 250); 
 
             this.lblId = new Label();
             this.lblId.Text = "Id";
@@ -75,7 +71,7 @@ namespace Views
             this.lblName = new Label();
             this.lblName.Text = "Name";
             this.lblName.Location = new Point(10, 70);
-            this.lblName.Size = new Size(50, 20);
+            this.lblName.Size = new Size(70, 20);
 
             this.txtName = new TextBox();
             this.txtName.Location = new Point(80, 70);
@@ -92,8 +88,9 @@ namespace Views
 
             this.btCrt = new Button();
             this.btCrt.Text = "Add";
-            this.btCrt.Location = new Point(10, 150);
-            this.btCrt.Size = new Size(50, 20);
+            this.btCrt.Location = new Point(80, 160);
+            this.btCrt.Size = new Size(150, 25);
+            this.btCrt.Click += new EventHandler(this.btCrt_Click);
 
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.txtId);

@@ -3,38 +3,51 @@ using Controllers;
 
 namespace Views
 {
-    public class List : Form
+    public enum Option {Update, Delete}
+    public class ListEmployee : Form
     {
-        public enum Option { Update, Delete }
-        ListView listProduct;
+        ListView listEmployee;
 
-        private void AddListView(Models.Product product)
+        private void AddListView(Models.Employee employee)
         {
             string[] row = {
-                product.Id.ToString(),
-                product.Name,
-                product.Value.ToString()
+                employee.Id.ToString(),
+                employee.Name
             };
 
             ListViewItem item = new ListViewItem(row);
-            listProduct.Items.Add(item);
+            listEmployee.Items.Add(item);
         }
 
         public void RefreshList()
         {
-            listProduct.Items.Clear();
+            listEmployee.Items.Clear();
 
-            List<Models.Product> list = Controllers.Product.index();
+            List<Models.Employee> list = Controllers.Employee.index();
 
-            foreach (Models.Product product in list)
+            foreach (Models.Employee employee in list)
             {
-                AddListView(product);
+                AddListView(employee);
+            }
+        }
+
+        public Models.Employee GetSelectedEmployee(Option option)
+        {
+            if (listEmployee.SelectedItems.Count > 0)
+            {
+                int selectedEmployeeId = int.Parse(listEmployee.SelectedItems[0].Text);
+                List<Models.Employee> employees = Controllers.Employee.show(selectedEmployeeId);
+                return employees.FirstOrDefault();
+            }
+            else
+            {
+                throw new Exception($"Select a Employee for {(option == Option.Update ? "udpate" : "delete")}");
             }
         }
 
         private void btCrt_Click(object sender, EventArgs e)
         {
-            var Create = new Views.CreateProduct();
+            var Create = new Views.EmployeeCreate();
             Create.Show();
         }
 
@@ -42,13 +55,13 @@ namespace Views
         {
             try
             {
-                Models.Product product = GetSelectedProduct(Option.Update);
+                Models.Employee employee = GetSelectedEmployee(Option.Update);
                 RefreshList();
-                var ProductUpdateView = new Views.Update(product);
-                if (ProductUpdateView.ShowDialog() == DialogResult.OK)
+                var EmployeeUpdateView = new Views.UpdateEmployee(employee);
+                if (EmployeeUpdateView.ShowDialog() == DialogResult.OK)
                 {
                     RefreshList();
-                    MessageBox.Show("Product updated successfully.");
+                    MessageBox.Show("Employee updated successfully.");
                 }
             }
             catch (Exception err)
@@ -57,15 +70,15 @@ namespace Views
             }
         }
 
-        private void btDelete_Click(object sender, EventArgs e)
+        public void btDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                Models.Product product = GetSelectedProduct(Option.Delete);
-                DialogResult result = MessageBox.Show("Do you want to delete this product?", "Confirm deletion", MessageBoxButtons.YesNo);
+                Models.Employee employee = GetSelectedEmployee(Option.Delete);
+                DialogResult result = MessageBox.Show("Do you want to delete this Employee?", "Confirm delection", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    Controllers.Product.destroy(product.Id);
+                    Controllers.Product.destroy(employee.Id);
                     RefreshList();
                 }
             }
@@ -82,30 +95,16 @@ namespace Views
             }
         }
 
-        public Models.Product GetSelectedProduct(Option option)
-        {
-            if (listProduct.SelectedItems.Count > 0)
-            {
-                int selectedProductId = int.Parse(listProduct.SelectedItems[0].Text);
-                List<Models.Product> products = Controllers.Product.show(selectedProductId);
-                return products.FirstOrDefault();
-            }
-            else
-            {
-                throw new Exception($"Select a Product for {(option == Option.Update ? "udpate" : "delete")}");
-            }
-        }
-
         private void btClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        public List()
+        public ListEmployee()
         {
-            // this.Icon = new Icon("Assets/logoUm.ico", 52, 52);
+            this.Icon = new Icon("Assets/logoUm.ico", 52, 52);
 
-            this.Text = "Products";
+            this.Text = "Employees";
             this.Size = new Size(800, 450);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -115,21 +114,19 @@ namespace Views
             this.ShowIcon = true;
             this.ShowInTaskbar = false;
 
-            listProduct = new ListView();
-            listProduct.Size = new Size(680, 260);
-            listProduct.Location = new Point(50, 50);
-            listProduct.View = View.Details;
-            listProduct.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            listProduct.Columns.Add("Name", -2, HorizontalAlignment.Left);
-            listProduct.Columns.Add("Value", -2, HorizontalAlignment.Left);
-            listProduct.Columns[0].Width = 30;
-            listProduct.Columns[1].Width = 100;
-            listProduct.Columns[2].Width = 60;
-            listProduct.FullRowSelect = true;
-            this.Controls.Add(listProduct);
+            listEmployee = new ListView();
+            listEmployee.Size = new Size(680, 260);
+            listEmployee.Location = new Point(50, 50);
+            listEmployee.View = View.Details;
+            listEmployee.Columns.Add("Id", -2, HorizontalAlignment.Left);
+            listEmployee.Columns.Add("Name", -2, HorizontalAlignment.Left);
+            listEmployee.Columns[0].Width = 30;
+            listEmployee.Columns[1].Width = 100;
+            listEmployee.FullRowSelect = true;
+            this.Controls.Add(listEmployee);
 
             RefreshList();
-
+            
             Button btCrt = new Button();
             btCrt.Text = "Add";
             btCrt.Size = new Size(100, 30);

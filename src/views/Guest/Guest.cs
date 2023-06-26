@@ -1,40 +1,46 @@
+using System;
 using Models;
 using Controllers;
 
 namespace Views
 {
-    public class List : Form
+    public class ListGuest : Form
     {
-        public enum Option { Update, Delete }
-        ListView listProduct;
+        public enum Options {Update, Delete}
 
-        private void AddListView(Models.Product product)
+        ListView listGuest;
+
+        private void AddListView(Models.Guest guest)
         {
             string[] row = {
-                product.Id.ToString(),
-                product.Name,
-                product.Value.ToString()
+                guest.Id.ToString(),
+                guest.Name,
+                guest.Birth.ToString(),
+                guest.Payment.ToString(),
+                guest.Document.ToString(),
+                guest.MothersName
+
             };
 
             ListViewItem item = new ListViewItem(row);
-            listProduct.Items.Add(item);
+            listGuest.Items.Add(item);
         }
 
         public void RefreshList()
         {
-            listProduct.Items.Clear();
+            listGuest.Items.Clear();
 
-            List<Models.Product> list = Controllers.Product.index();
+            List<Models.Guest> list = Controllers.Guest.index();
 
-            foreach (Models.Product product in list)
+            foreach(Models.Guest guest in list)
             {
-                AddListView(product);
+                AddListView(guest);
             }
         }
 
         private void btCrt_Click(object sender, EventArgs e)
         {
-            var Create = new Views.CreateProduct();
+            var Create = new Views.CreateGuest();
             Create.Show();
         }
 
@@ -42,13 +48,14 @@ namespace Views
         {
             try
             {
-                Models.Product product = GetSelectedProduct(Option.Update);
+                Models.Guest guest = GetSelectedGuest(Options.Update);
                 RefreshList();
-                var ProductUpdateView = new Views.Update(product);
-                if (ProductUpdateView.ShowDialog() == DialogResult.OK)
+                var GuestUpdateView =  new Views.UpdateGuest(guest);
+                if (GuestUpdateView.ShowDialog() == DialogResult.OK) 
                 {
+                    
                     RefreshList();
-                    MessageBox.Show("Product updated successfully.");
+                    MessageBox.Show("Guest updated successfully!");
                 }
             }
             catch (Exception err)
@@ -61,17 +68,18 @@ namespace Views
         {
             try
             {
-                Models.Product product = GetSelectedProduct(Option.Delete);
-                DialogResult result = MessageBox.Show("Do you want to delete this product?", "Confirm deletion", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                Models.Guest guest = GetSelectedGuest(Options.Delete);
+                DialogResult result = MessageBox.Show("Do you really want to delete this guest?", "Confirm deletion", MessageBoxButtons.YesNo);
+                if(result == DialogResult.Yes)
                 {
-                    Controllers.Product.destroy(product.Id);
+                    Controllers.Guest.destroy(guest.Id);
                     RefreshList();
                 }
+                
             }
             catch (Exception err)
             {
-                if (err.InnerException != null)
+                if(err.InnerException != null)
                 {
                     MessageBox.Show(err.InnerException.Message);
                 }
@@ -80,19 +88,21 @@ namespace Views
                     MessageBox.Show(err.Message);
                 }
             }
+
         }
 
-        public Models.Product GetSelectedProduct(Option option)
+        public Models.Guest GetSelectedGuest(Options options)
         {
-            if (listProduct.SelectedItems.Count > 0)
+            if(listGuest.SelectedItems.Count > 0)
             {
-                int selectedProductId = int.Parse(listProduct.SelectedItems[0].Text);
-                List<Models.Product> products = Controllers.Product.show(selectedProductId);
-                return products.FirstOrDefault();
+                int selectedGuestId = int.Parse(listGuest.SelectedItems[0].Text);
+                List<Models.Guest> guest = Controllers.Guest.show(selectedGuestId);
+                return guest.FirstOrDefault();
+
             }
             else
             {
-                throw new Exception($"Select a Product for {(option == Option.Update ? "udpate" : "delete")}");
+                throw new Exception($"Select a guest for {(options == Options.Update ? "udpate" : "delete")}");
             }
         }
 
@@ -101,32 +111,37 @@ namespace Views
             this.Close();
         }
 
-        public List()
+        public ListGuest()
         {
-            // this.Icon = new Icon("Assets/logoUm.ico", 52, 52);
+            this.Icon = new Icon("Assets/logoUm.ico", 52, 52);
 
-            this.Text = "Products";
-            this.Size = new Size(800, 450);
+            this.Text = "Guest";
+            this.Size = new Size (800, 450);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
-            Color color = System.Drawing.ColorTranslator.FromHtml("#E7E7E7");
             this.ShowIcon = true;
             this.ShowInTaskbar = false;
 
-            listProduct = new ListView();
-            listProduct.Size = new Size(680, 260);
-            listProduct.Location = new Point(50, 50);
-            listProduct.View = View.Details;
-            listProduct.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            listProduct.Columns.Add("Name", -2, HorizontalAlignment.Left);
-            listProduct.Columns.Add("Value", -2, HorizontalAlignment.Left);
-            listProduct.Columns[0].Width = 30;
-            listProduct.Columns[1].Width = 100;
-            listProduct.Columns[2].Width = 60;
-            listProduct.FullRowSelect = true;
-            this.Controls.Add(listProduct);
+            listGuest = new ListView();
+            listGuest.Size = new Size(680, 260);
+            listGuest.Location = new Point(50,50);
+            listGuest.View = View.Details;
+            listGuest.Columns.Add("Id");
+            listGuest.Columns.Add("Name");
+            listGuest.Columns.Add("Birth");
+            listGuest.Columns.Add("Payment");
+            listGuest.Columns.Add("Document");
+            listGuest.Columns.Add("Mother's Name");
+            listGuest.Columns[0].Width = 30;
+            listGuest.Columns[1].Width = 60;
+            listGuest.Columns[2].Width = 60;
+            listGuest.Columns[3].Width = 80;
+            listGuest.Columns[4].Width = 80;
+            listGuest.Columns[5].Width = 120;
+            listGuest.FullRowSelect = true;
+            this.Controls.Add(listGuest);
 
             RefreshList();
 
@@ -157,6 +172,7 @@ namespace Views
             btClose.Location = new Point(410, 330);
             btClose.Click += new EventHandler(btClose_Click);
             this.Controls.Add(btClose);
+
         }
     }
 }
