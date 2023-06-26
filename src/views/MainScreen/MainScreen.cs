@@ -162,8 +162,8 @@ namespace Views
             subMenuItRegisterEmemployees.Text = "Funcionários";
             subMenuItRegisterEmemployees.Click += (sender, e) =>
             {
-                // var registerEmployee = new RegisterEmployee();
-                // registerEmployee.ShowDialog();
+                var registerEmployee = new EmployeeCreate();
+                registerEmployee.ShowDialog();
                 this.Show();
             };
 
@@ -171,8 +171,8 @@ namespace Views
             subMenuItemRegisterProducts.Text = "Produtos";
             subMenuItemRegisterProducts.Click += (sender, e) =>
             {
-                // var registerProduct = new RegisterProduct();
-                // registerProduct.ShowDialog();
+                var registerProduct = new CreateProduct();
+                registerProduct.ShowDialog();
                 this.Show();
             };
 
@@ -181,7 +181,7 @@ namespace Views
             subMenuItemViewsRooms.Text = "Quartos";
             subMenuItemViewsRooms.Click += (sender, e) =>
             {
-                var listRooms = new List();
+                var listRooms = new ListRoom();
                 listRooms.ShowDialog();
                 this.Show();
             }; ;
@@ -190,8 +190,8 @@ namespace Views
             subMenuItemViewsEmployees.Text = "Funcionários";
             subMenuItemViewsEmployees.Click += (sender, e) =>
             {
-                // var listEmployees = new List();
-                // listEmployees.ShowDialog();
+                var listEmployees = new ListEmployee();
+                listEmployees.ShowDialog();
                 this.Show();
             };
 
@@ -220,10 +220,9 @@ namespace Views
             {
                 // var statementsAccommodation = new StatementsAccommodation();
                 // statementsAccommodation.ShowDialog();
-                this.Show();
+                // this.Show();
             };
 
-            if(Models.Guest.)
             menuItemRegister.DropDownItems.Add(subMenuItemRegisterRooms);
             menuItemRegister.DropDownItems.Add(subMenuItRegisterEmemployees);
             menuItemRegister.DropDownItems.Add(subMenuItemRegisterProducts);
