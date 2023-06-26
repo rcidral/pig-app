@@ -6,64 +6,111 @@ namespace Views
     public class MainScreen : Form
     {
 
-        private int[,] quantityRooms = {
-            {101, 102, 103, 104, 105, 106},
-            {201, 202, 203, 204, 205, 206},
-            {301, 302, 303, 304, 305, 306}
-        };
+        public event EventHandler<string> ButtonClicked;
+        public int availableCount { get; set; }
+        public int occupiedCount { get; set; }
+        public int reservedCount { get; set; }
+        public int cleaningCount { get; set; }
+        public Button button1;
 
-        private void button_Click(object sender, EventArgs e)
+
+
+        // private Dictionary<string, int> colorCounts = new Dictionary<string, int>();
+
+
+        private List<int> getNumbersRooms()
         {
-            Button button = (Button)sender;
-            button.BackColor = ColorTranslator.FromHtml("#B73E3E");
-            button.ForeColor = Color.White;
-            button.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#242424");
-            // var checkIn = new CheckIn();
-            // checkIn.ShowDialog();
-            // this.Show();
+            List<Models.Room> rooms = Controllers.Room.index();
+            List<Models.Room> roomsNumbers = rooms.OrderBy(room => room.Number).ToList();
+
+            List<int> quantityRooms = new List<int>();
+
+            foreach (Models.Room room in roomsNumbers)
+            {
+                if (room.Number > 0)
+                {
+                    quantityRooms.Add(room.Number);
+                }
+            }
+
+            return quantityRooms;
         }
+
+
+        // public void button_Click( string status)
+        // {
+        //     Button button1 = new Button();
+
+        //     switch (status)
+        //     {
+        //         case "RESERVED":
+        //             button1.BackColor = ColorTranslator.FromHtml("#F7DB6A"); // Amarelo para quarto reservado
+        //             reservedCount++;
+        //             break;
+        //         case "OCCUPIED":
+        //             button1.BackColor = ColorTranslator.FromHtml("#B73E3E"); // Vermelho para quarto ocupado
+        //             occupiedCount++;
+        //             break;
+        //         case "CLEANING":
+        //             button1.BackColor = ColorTranslator.FromHtml("#7FBCD2"); // Laranja para quarto em limpeza
+        //             cleaningCount++;
+        //             break;
+        //         default:
+        //             button1.BackColor = ColorTranslator.FromHtml("#539165"); // Cor padrão para outros status
+        //             availableCount++;
+        //             break;
+        //     }
+
+        //     button1.ForeColor = Color.White;
+        //     button1.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#242424");
+
+        //     // ButtonClicked?.Invoke(button, status);
+
+        // }
+
 
         private void createSquares()
         {
-            int sizeSquare = 130; 
-            int spacingSquare = 15; 
+            int sizeSquare = 130;
+            int spacingSquare = 15;
 
-            for (int i = 0; i < quantityRooms.GetLength(0); i++)
+            foreach (int quantityRoom in getNumbersRooms())
             {
-                for (int j = 0; j < quantityRooms.GetLength(1); j++)
+                Button button1 = new Button();
+                button1.Text = quantityRoom.ToString();
+                button1.Size = new Size(sizeSquare, sizeSquare);
+                button1.Location = new Point((quantityRoom - 1) * (sizeSquare + spacingSquare), 0);
+                button1.Click += (sender, e) => 
                 {
-                    int quantityRoom = quantityRooms[i, j];
-
-                    Button button = new Button();
-                    button.Text = quantityRoom.ToString();
-                    button.Size = new Size(sizeSquare, sizeSquare);
-                    button.Location = new Point(j * (sizeSquare + spacingSquare), i * (sizeSquare + spacingSquare));
-                    button.Click += button_Click; 
-                    Controls.Add(button); 
-                }
+                    // button_Click("RESERVED");
+                };
+                Controls.Add(button1);
             }
         }
-        private Panel createSquare(Color color, string name)
+
+
+
+        private Panel createSquare(Color color, string name, int count)
         {
             Panel square = new Panel();
             square.BackColor = color;
             square.Dock = DockStyle.Fill;
             square.ForeColor = BackColor;
 
-
-            int sizeWidth = 50; 
+            int sizeWidth = 100;
             int sizeHeight = 20;
             square.Size = new Size(sizeWidth, sizeHeight);
 
-            Label label = new Label();
-            label.Text = name;
-            label.ForeColor = Color.White;
-            label.TextAlign = ContentAlignment.MiddleCenter;
-            label.Dock = DockStyle.Fill;
-            label.Font = new Font("Tahoma", 9f, System.Drawing.FontStyle.Regular, GraphicsUnit.
-            Point, ((byte)(0)));
 
-            square.Controls.Add(label);
+            Label countLabel = new Label();
+            countLabel.Text = name + ": " + count.ToString();
+            countLabel.ForeColor = Color.White;
+            countLabel.TextAlign = ContentAlignment.MiddleCenter;
+            countLabel.Dock = DockStyle.Bottom;
+            countLabel.Font = new Font("Tahoma", 9f, System.Drawing.FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+
+            // square.Controls.Add(nameLabel);
+            square.Controls.Add(countLabel);
 
             return square;
         }
@@ -104,15 +151,17 @@ namespace Views
             //Cadastro
             ToolStripMenuItem subMenuItemRegisterRooms = new ToolStripMenuItem();
             subMenuItemRegisterRooms.Text = "Quartos";
-            subMenuItemRegisterRooms.Click += (sender, e) => {
+            subMenuItemRegisterRooms.Click += (sender, e) =>
+            {
                 var registerRoom = new RegisterRoom();
                 registerRoom.ShowDialog();
                 this.Show();
-            };;
+            }; ;
 
             ToolStripMenuItem subMenuItRegisterEmemployees = new ToolStripMenuItem();
             subMenuItRegisterEmemployees.Text = "Funcionários";
-            subMenuItRegisterEmemployees.Click += (sender, e) => {
+            subMenuItRegisterEmemployees.Click += (sender, e) =>
+            {
                 // var registerEmployee = new RegisterEmployee();
                 // registerEmployee.ShowDialog();
                 this.Show();
@@ -120,7 +169,8 @@ namespace Views
 
             ToolStripMenuItem subMenuItemRegisterProducts = new ToolStripMenuItem();
             subMenuItemRegisterProducts.Text = "Produtos";
-            subMenuItemRegisterProducts.Click += (sender, e) => {
+            subMenuItemRegisterProducts.Click += (sender, e) =>
+            {
                 // var registerProduct = new RegisterProduct();
                 // registerProduct.ShowDialog();
                 this.Show();
@@ -129,15 +179,17 @@ namespace Views
             //Vizualização      
             ToolStripMenuItem subMenuItemViewsRooms = new ToolStripMenuItem();
             subMenuItemViewsRooms.Text = "Quartos";
-            subMenuItemViewsRooms.Click += (sender, e) => {
+            subMenuItemViewsRooms.Click += (sender, e) =>
+            {
                 var listRooms = new List();
                 listRooms.ShowDialog();
                 this.Show();
-            };;
+            }; ;
 
             ToolStripMenuItem subMenuItemViewsEmployees = new ToolStripMenuItem();
             subMenuItemViewsEmployees.Text = "Funcionários";
-            subMenuItemViewsEmployees.Click += (sender, e) => {
+            subMenuItemViewsEmployees.Click += (sender, e) =>
+            {
                 // var listEmployees = new List();
                 // listEmployees.ShowDialog();
                 this.Show();
@@ -145,16 +197,18 @@ namespace Views
 
             ToolStripMenuItem subMenuItemViewsProducts = new ToolStripMenuItem();
             subMenuItemViewsProducts.Text = "Produtos";
-            subMenuItemViewsProducts.Click +=  (sender, e) => {
+            subMenuItemViewsProducts.Click += (sender, e) =>
+            {
                 var listProoducts = new List();
                 listProoducts.ShowDialog();
                 this.Show();
-            };;
+            }; ;
 
             //Balanço
             ToolStripMenuItem subMenuItemStatementsProducts = new ToolStripMenuItem();
             subMenuItemStatementsProducts.Text = "Produtos";
-            subMenuItemStatementsProducts.Click += (sender, e) => {
+            subMenuItemStatementsProducts.Click += (sender, e) =>
+            {
                 // var statementsProducts = new StatementsProducts();
                 // statementsProducts.ShowDialog();
                 this.Show();
@@ -162,12 +216,14 @@ namespace Views
 
             ToolStripMenuItem subMenuItemStatementsAccommodation = new ToolStripMenuItem();
             subMenuItemStatementsAccommodation.Text = "Hospedagem";
-            subMenuItemStatementsAccommodation.Click += (sender, e) => {
+            subMenuItemStatementsAccommodation.Click += (sender, e) =>
+            {
                 // var statementsAccommodation = new StatementsAccommodation();
                 // statementsAccommodation.ShowDialog();
                 this.Show();
             };
 
+            if(Models.Guest.)
             menuItemRegister.DropDownItems.Add(subMenuItemRegisterRooms);
             menuItemRegister.DropDownItems.Add(subMenuItRegisterEmemployees);
             menuItemRegister.DropDownItems.Add(subMenuItemRegisterProducts);
@@ -185,7 +241,7 @@ namespace Views
 
 
 
-            int sizeSquare = 105; 
+            int sizeSquare = 105;
             int spacingSquare = 15;
             int columnsSquare = 6;
             int rowsSquare = 3;
@@ -211,34 +267,31 @@ namespace Views
                 tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F / tableLayoutPanel.RowCount));
             }
 
-            for (int i = 0; i < quantityRooms.GetLength(0); i++)
+            for (int i = 0; i < getNumbersRooms().Count; i++)
             {
-                for (int j = 0; j < quantityRooms.GetLength(1); j++)
+                int quantityRoom = getNumbersRooms()[i];
+                string roomId = quantityRoom.ToString(); // Substitua pelo valor correto
+
+                Button button = new Button();
+                button.Text = quantityRoom.ToString();
+                button.Size = new Size(sizeSquare, sizeSquare);
+                button.FlatStyle = FlatStyle.Flat;
+                button.FlatAppearance.BorderSize = 1;
+                button.Font = new Font("Segoe UI", 8f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+                button.BackColor = ColorTranslator.FromHtml("#539165");
+                button.ForeColor = ColorTranslator.FromHtml("#ffffff");
+                button.Margin = new Padding(spacingSquare / 2);
+                button.Click += (sender, e) =>
                 {
-                    int quantityRoom = quantityRooms[i, j];
-
-                    Button button = new Button();
-                    button.Text = quantityRoom.ToString();
-                    button.Size = new Size(sizeSquare, sizeSquare);
-                    button.FlatStyle = FlatStyle.Flat;
-                    button.FlatAppearance.BorderSize = 1;
-                    button.Font = new Font("Segoe UI", 8f, System.Drawing.FontStyle.Bold, GraphicsUnit.
-                    Point, ((byte)(0)));
-                    button.BackColor = ColorTranslator.FromHtml("#539165");
-                    button.ForeColor = ColorTranslator.FromHtml("#ffffff");
-                    button.Margin = new Padding(spacingSquare / 2); 
-                    button.Click += (sender, e) => 
-                    {
-                        var room = new CheckIn(quantityRoom.ToString());
-                        room.ShowDialog();
-                        this.Show();
-                       
-                    };
-
-                    tableLayoutPanel.Controls.Add(button, j, i);
+                    var checkIn = new CheckIn(roomId);
+                    checkIn.ShowDialog();
+                    this.Show();
                 };
-
+                tableLayoutPanel.Controls.Add(button, i, 0);
             }
+
+
+
 
 
             Color colorOccupied = ColorTranslator.FromHtml("#B73E3E");
@@ -256,22 +309,23 @@ namespace Views
             roomLayoutPanel.AutoSize = true;
             roomLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             roomLayoutPanel.Height = 80;
-            roomLayoutPanel.BackColor= ColorTranslator.FromHtml("#3C4858");
-            roomLayoutPanel.Location = new Point((this.ClientSize.Width - widthTable) / 2, (this.ClientSize.Height - heightTable) / 3 );
-            roomLayoutPanel.Padding =  new Padding(spacingSquare / 1, spacingSquare / 2, spacingSquare / 1, spacingSquare / 2);
+            roomLayoutPanel.BackColor = ColorTranslator.FromHtml("#3C4858");
+            roomLayoutPanel.Location = new Point((this.ClientSize.Width - widthTable) / 2, (this.ClientSize.Height - heightTable) / 3);
+            roomLayoutPanel.Padding = new Padding(spacingSquare / 1, spacingSquare / 2, spacingSquare / 1, spacingSquare / 2);
             roomLayoutPanel.ColumnCount = 14;
             roomLayoutPanel.ColumnStyles.Clear();
-            
+
 
             for (int i = 0; i < roomLayoutPanel.ColumnCount; i++)
             {
                 roomLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8F));
-            }
+            };
 
-            Panel roomOccupied = createSquare(colorOccupied, nameOccupied);
-            Panel roomReserved = createSquare(colorReserved, nameReserved);
-            Panel roomAvailable = createSquare(colorAvailable, nameAvailable);
-            Panel roomCleaning = createSquare(colorCleaning, nameCleaning);
+
+            Panel roomOccupied = createSquare(colorOccupied, nameOccupied, occupiedCount);
+            Panel roomReserved = createSquare(colorReserved, nameReserved, reservedCount);
+            Panel roomAvailable = createSquare(colorAvailable, nameAvailable, availableCount);
+            Panel roomCleaning = createSquare(colorCleaning, nameCleaning, cleaningCount);
 
             roomLayoutPanel.Controls.Add(roomOccupied, 5, 0);
             roomLayoutPanel.Controls.Add(roomReserved, 6, 0);
@@ -282,7 +336,7 @@ namespace Views
             Controls.Add(tableLayoutPanel);
 
 
-        }        
+        }
 
 
 

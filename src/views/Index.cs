@@ -99,7 +99,7 @@ namespace Views
                 initialScreen.Hide();
                 var mainScreen = new MainScreen();
                 mainScreen.ShowDialog();
-                initialScreen.Show();
+                initialScreen.Close();
             };
 
             Button btnExit = new Button();
