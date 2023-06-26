@@ -11,7 +11,7 @@ namespace Controllers
             try
             {
                 Models.Expenses.store(expenses);
-                Controllers.Room.updateValue(expenses.Reservation.RoomId, expenses.Value);
+                Controllers.Room.updateValue(expenses.Reservation.RoomNumber, expenses.Value);
             }
             catch (System.Exception e)
             {

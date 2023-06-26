@@ -38,7 +38,15 @@ namespace pigapp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Birth = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Payment = table.Column<int>(type: "int", nullable: false),
+                    Document = table.Column<int>(type: "int", nullable: false),
+                    MothersName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Type = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,6 +66,8 @@ namespace pigapp.Migrations
                     Payment = table.Column<int>(type: "int", nullable: false),
                     Document = table.Column<int>(type: "int", nullable: false),
                     MothersName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -108,7 +118,7 @@ namespace pigapp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     GuestId = table.Column<int>(type: "int", nullable: false),
-                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    RoomNumber = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DaysOfStay = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -125,8 +135,8 @@ namespace pigapp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservations_Rooms_RoomId",
-                        column: x => x.RoomId,
+                        name: "FK_Reservations_Rooms_RoomNumber",
+                        column: x => x.RoomNumber,
                         principalTable: "Rooms",
                         principalColumn: "Number",
                         onDelete: ReferentialAction.Cascade);
@@ -178,9 +188,9 @@ namespace pigapp.Migrations
                 column: "GuestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_RoomId",
+                name: "IX_Reservations_RoomNumber",
                 table: "Reservations",
-                column: "RoomId");
+                column: "RoomNumber");
         }
 
         /// <inheritdoc />

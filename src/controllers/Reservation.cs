@@ -62,6 +62,18 @@ namespace Controllers
             }
         }
 
+        public static void findByNumberRoom(int numberRoom)
+        {
+            try
+            {
+                Models.Reservation.findByNumberRoom(numberRoom);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }
 

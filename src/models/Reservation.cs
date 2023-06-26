@@ -11,17 +11,17 @@ namespace Models
         public virtual Guest Guest { get; set; }
         public virtual Room Room { get; set; }
         public int GuestId { get; set; }
-        public int RoomId { get; set; }
+        public int RoomNumber { get; set; }
         public DateTime Date { get; set; }
         public int DaysOfStay { get; set; }
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public double Total { get; set; }
 
-        public Reservation(int guestId, int roomId, int daysOfStay, DateTime checkIn, double total)
+        public Reservation(int guestId, int roomNumber, int daysOfStay, DateTime checkIn, double total)
         {
             this.GuestId = guestId;
-            this.RoomId = roomId;
+            this.RoomNumber = roomNumber;
             this.Date = DateTime.Now;
             this.DaysOfStay = daysOfStay;
             this.CheckIn = checkIn;
@@ -107,6 +107,25 @@ namespace Models
                     Reservation reservation = context.Reservations.Find(id);
                     context.Reservations.Remove(reservation);
                     context.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void findByNumberRoom(int numberRoom)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    List<Reservation> reservations = context.Reservations.Where(reservation => reservation.RoomNumber == numberRoom).ToList();
+                    foreach (Reservation reservation in reservations)
+                    {
+                        Console.WriteLine(reservation.Guest.Name);
+                    }
                 }
             }
             catch (System.Exception e)

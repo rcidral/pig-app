@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace pigapp.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230621225034_finish")]
+    [Migration("20230626234934_finish")]
     partial class finish
     {
         /// <inheritdoc />
@@ -48,9 +48,29 @@ namespace pigapp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Birth")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Document")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MothersName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Payment")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Type")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -104,6 +124,10 @@ namespace pigapp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("Payment")
                         .HasColumnType("int");
 
@@ -151,7 +175,7 @@ namespace pigapp.Migrations
                     b.Property<int>("GuestId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
                     b.Property<double>("Total")
@@ -161,7 +185,7 @@ namespace pigapp.Migrations
 
                     b.HasIndex("GuestId");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("RoomNumber");
 
                     b.ToTable("Reservations");
                 });
@@ -220,7 +244,7 @@ namespace pigapp.Migrations
 
                     b.HasOne("Models.Room", "Room")
                         .WithMany()
-                        .HasForeignKey("RoomId")
+                        .HasForeignKey("RoomNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
