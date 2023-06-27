@@ -6,16 +6,15 @@ namespace Views
     public class MainScreen : Form
     {
 
-        public event EventHandler<string> ButtonClicked;
+        private List<Button> buttons = new List<Button>();
         public int availableCount { get; set; }
         public int occupiedCount { get; set; }
         public int reservedCount { get; set; }
         public int cleaningCount { get; set; }
-        public Button button1;
+        public Button button { get; set; }
 
 
 
-        // private Dictionary<string, int> colorCounts = new Dictionary<string, int>();
 
 
         private List<int> getNumbersRooms()
@@ -34,57 +33,62 @@ namespace Views
             }
 
             return quantityRooms;
+            }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            var roomId = Convert.ToInt32(button.Text);
+            Models.Reservation reservation = Controllers.Reservation.findByNumberRoom(roomId);
+
+            var checkInForm = new CheckIn(roomId);
+            checkInForm.ShowDialog();
+
+            UpdateButtonColor((Button)sender, reservation);
         }
 
 
-        // public void button_Click( string status)
-        // {
-        //     Button button1 = new Button();
+        private void UpdateButtonColor(Button button, Models.Reservation reservation)
+        {
+            var today = DateTime.Today;
 
-        //     switch (status)
-        //     {
-        //         case "RESERVED":
-        //             button1.BackColor = ColorTranslator.FromHtml("#F7DB6A"); // Amarelo para quarto reservado
-        //             reservedCount++;
-        //             break;
-        //         case "OCCUPIED":
-        //             button1.BackColor = ColorTranslator.FromHtml("#B73E3E"); // Vermelho para quarto ocupado
-        //             occupiedCount++;
-        //             break;
-        //         case "CLEANING":
-        //             button1.BackColor = ColorTranslator.FromHtml("#7FBCD2"); // Laranja para quarto em limpeza
-        //             cleaningCount++;
-        //             break;
-        //         default:
-        //             button1.BackColor = ColorTranslator.FromHtml("#539165"); // Cor padrão para outros status
-        //             availableCount++;
-        //             break;
-        //     }
+            if (reservation != null)
+            {
+                if (reservation.CheckIn.Date == today.Date)
+                {
+                    button.BackColor = ColorTranslator.FromHtml("#B73E3E");
+                }
+                else
+                {
+                    button.BackColor = ColorTranslator.FromHtml("#F7DB6A"); 
+                }
+            }
+            else
+            {
+                button.BackColor = ColorTranslator.FromHtml("#539165"); 
+            }
 
-        //     button1.ForeColor = Color.White;
-        //     button1.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#242424");
-
-        //     // ButtonClicked?.Invoke(button, status);
-
-        // }
+            button.ForeColor = Color.White;
+        }
 
 
+   
         private void createSquares()
         {
             int sizeSquare = 130;
             int spacingSquare = 15;
 
-            foreach (int quantityRoom in getNumbersRooms())
+            List<int> quantityRooms = getNumbersRooms();
+
+            foreach (int quantityRoom in quantityRooms)
             {
-                Button button1 = new Button();
-                button1.Text = quantityRoom.ToString();
-                button1.Size = new Size(sizeSquare, sizeSquare);
-                button1.Location = new Point((quantityRoom - 1) * (sizeSquare + spacingSquare), 0);
-                button1.Click += (sender, e) => 
-                {
-                    // button_Click("RESERVED");
-                };
-                Controls.Add(button1);
+                Button button = new Button();
+                button.Text = quantityRoom.ToString();
+                button.Size = new Size(sizeSquare, sizeSquare);
+                button.Location = new Point((quantityRoom - 1) * (sizeSquare + spacingSquare), 0);
+                // button.Click += Button_Click;
+                buttons.Add(button);
+                Controls.Add(button);
             }
         }
 
@@ -155,7 +159,7 @@ namespace Views
             {
                 var registerRoom = new RegisterRoom();
                 registerRoom.ShowDialog();
-                this.Show();
+                this.ShowDialog();
             }; ;
 
             ToolStripMenuItem subMenuItRegisterEmemployees = new ToolStripMenuItem();
@@ -166,6 +170,19 @@ namespace Views
                 registerEmployee.ShowDialog();
                 this.Show();
             };
+
+            ToolStripMenuItem subMenuItemRegisterGuests = new ToolStripMenuItem();
+            subMenuItemRegisterGuests.Text = "Hospede";
+            subMenuItemRegisterGuests.Click += (sender, e) =>
+            {
+                var registerGuest = new CreateGuest();
+                registerGuest.FormClosed += (s, args) => 
+                {
+                    this.Show();
+                };
+                registerGuest.ShowDialog();
+                this.ShowDialog();
+            }; ;
 
             ToolStripMenuItem subMenuItemRegisterProducts = new ToolStripMenuItem();
             subMenuItemRegisterProducts.Text = "Produtos";
@@ -182,16 +199,32 @@ namespace Views
             subMenuItemViewsRooms.Click += (sender, e) =>
             {
                 var listRooms = new ListRoom();
+                listRooms.FormClosed += (s, args) =>
+                {
+                    this.Show(); 
+                };
                 listRooms.ShowDialog();
-                this.Show();
-            }; ;
+            };
 
             ToolStripMenuItem subMenuItemViewsEmployees = new ToolStripMenuItem();
             subMenuItemViewsEmployees.Text = "Funcionários";
             subMenuItemViewsEmployees.Click += (sender, e) =>
             {
-                var listEmployees = new ListEmployee();
+                var listEmployees = new Views.ListEmployee();
                 listEmployees.ShowDialog();
+                this.Show();
+            };
+
+            ToolStripMenuItem subMenuItemViewsGuests = new ToolStripMenuItem();
+            subMenuItemViewsGuests.Text = "Hospedes";
+            subMenuItemViewsGuests.Click += (sender, e) =>
+            {
+                var listGuests = new Views.ListGuest();
+                listGuests.Click += (s, args) =>
+                {
+                    this.Show();
+                };
+                listGuests.ShowDialog();
                 this.Show();
             };
 
@@ -224,10 +257,12 @@ namespace Views
             };
 
             menuItemRegister.DropDownItems.Add(subMenuItemRegisterRooms);
+            menuItemRegister.DropDownItems.Add(subMenuItemRegisterGuests);
             menuItemRegister.DropDownItems.Add(subMenuItRegisterEmemployees);
             menuItemRegister.DropDownItems.Add(subMenuItemRegisterProducts);
             menuItemViews.DropDownItems.Add(subMenuItemViewsRooms);
             menuItemViews.DropDownItems.Add(subMenuItemViewsEmployees);
+            menuItemViews.DropDownItems.Add(subMenuItemViewsGuests);
             menuItemViews.DropDownItems.Add(subMenuItemViewsProducts);
             menuItemStatements.DropDownItems.Add(subMenuItemStatementsProducts);
             menuItemStatements.DropDownItems.Add(subMenuItemStatementsAccommodation);
@@ -269,22 +304,52 @@ namespace Views
             for (int i = 0; i < getNumbersRooms().Count; i++)
             {
                 int quantityRoom = getNumbersRooms()[i];
-                string roomId = quantityRoom.ToString(); // Substitua pelo valor correto
+                int roomId = quantityRoom;
 
-                Button button = new Button();
+                this.button = new Button();
                 button.Text = quantityRoom.ToString();
                 button.Size = new Size(sizeSquare, sizeSquare);
                 button.FlatStyle = FlatStyle.Flat;
                 button.FlatAppearance.BorderSize = 1;
                 button.Font = new Font("Segoe UI", 8f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-                button.BackColor = ColorTranslator.FromHtml("#539165");
                 button.ForeColor = ColorTranslator.FromHtml("#ffffff");
+
+                Models.Reservation reservation = Controllers.Reservation.findByNumberRoom(roomId);
+                
+
+                DateTime today = DateTime.Now;
+                
+                if (reservation != null && reservation.CheckIn.Date == today.Date)
+                {
+                    button.BackColor = ColorTranslator.FromHtml("#B73E3E");
+                }
+                else if(reservation != null && reservation.CheckIn.Date != today.Date)
+                {
+                    button.BackColor = ColorTranslator.FromHtml("#F7DB6A");
+                }
+                else if(reservation != null && reservation.CheckIn == null)
+                {
+                    button.BackColor = ColorTranslator.FromHtml("#539165");
+                }
+                else
+                {
+                    button.BackColor = ColorTranslator.FromHtml("#539165");
+                }
+
                 button.Margin = new Padding(spacingSquare / 2);
                 button.Click += (sender, e) =>
                 {
-                    var checkIn = new CheckIn(roomId);
-                    checkIn.ShowDialog();
-                    this.Show();
+                    Models.Reservation roomAvailable = Controllers.Reservation.findByNumberRoom(roomId);
+                    if(roomAvailable == null)
+                    {
+                        var checkIn = new CheckIn(roomId);
+                        checkIn.Show();
+                    }
+                    else
+                    {
+                       ConfirmReserve(roomId);
+                    }
+                    
                 };
                 tableLayoutPanel.Controls.Add(button, i, 0);
             }
@@ -320,6 +385,13 @@ namespace Views
                 roomLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8F));
             };
 
+            List<Models.Reservation> reservations = Controllers.Reservation.index();
+
+            DateTime currentDate = DateTime.Today;
+
+            int occupiedCount = reservations.Count(r => r.CheckIn.Date == currentDate);
+            int reservedCount = reservations.Count(r => r.CheckIn.Date != currentDate);
+            int availableCount = getNumbersRooms().Count - occupiedCount - reservedCount;
 
             Panel roomOccupied = createSquare(colorOccupied, nameOccupied, occupiedCount);
             Panel roomReserved = createSquare(colorReserved, nameReserved, reservedCount);
@@ -336,6 +408,91 @@ namespace Views
 
 
         }
+
+        public void ConfirmReserve(int roomId)
+        {
+            Models.Reservation reservation = Controllers.Reservation.findByNumberRoom(roomId);
+
+            Form formConfirmReserve = new Form();
+            formConfirmReserve.Text = "Reserva - " + roomId;
+            formConfirmReserve.Size = new Size(350, 400);
+            formConfirmReserve.StartPosition = FormStartPosition.CenterScreen;
+            formConfirmReserve.FormBorderStyle = FormBorderStyle.FixedSingle;
+            formConfirmReserve.MaximizeBox = false;
+            formConfirmReserve.MinimizeBox = false;
+            formConfirmReserve.ControlBox = true;
+            formConfirmReserve.BackColor = ColorTranslator.FromHtml("#f5f5f5");
+
+
+            Label titleMessageBox = new Label();
+            titleMessageBox.Text = "Reserva - " + roomId;
+            titleMessageBox.AutoSize = true;
+            titleMessageBox.Location = new Point(30, 30);
+            titleMessageBox.Font = new Font("Arial", 16, FontStyle.Bold);
+            titleMessageBox.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            formConfirmReserve.Controls.Add(titleMessageBox);
+
+            ListBox listBox = new ListBox();
+            listBox.Location = new Point(45, 120);
+            listBox.Size = new Size(250, 120);
+            listBox.Font = new Font("Arial", 11, FontStyle.Regular);
+            listBox.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            listBox.BorderStyle = BorderStyle.None;
+            listBox.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            listBox.Margin = new Padding(listBox.Margin.Left, listBox.Margin.Top + 10, listBox.Margin.Right, listBox.Margin.Bottom);
+
+
+            listBox.Items.Add("Hospede: " +  reservation.GuestId);
+            listBox.Items.Add("Quarto: " + reservation.RoomNumber);
+            listBox.Items.Add("Dias: " + reservation.DaysOfStay);
+            listBox.Items.Add("CheckIn: " + reservation.CheckIn);
+            listBox.Items.Add("CheckOut: " + reservation.CheckOut);
+            listBox.Items.Add("Valor: " + reservation.Total);
+
+            Button buttonYes = new Button();
+            buttonYes.Text = "Cancelar reserva";
+            buttonYes.Size = new Size(100, 30);
+            buttonYes.Location = new Point(95, 300);
+            buttonYes.FlatStyle = FlatStyle.Flat;   
+            buttonYes.FlatAppearance.BorderSize = 1;
+            buttonYes.Font = new Font("Roboto", 8, FontStyle.Regular);
+            buttonYes.ForeColor = ColorTranslator.FromHtml("#ffffff");
+            buttonYes.BackColor = ColorTranslator.FromHtml("#78909C");
+            buttonYes.Click += (sender, e) =>
+            {
+                Controllers.Reservation.destroy(reservation.Id);
+                formConfirmReserve.Close();
+            };
+
+            Button buttonNo = new Button();
+            buttonNo.Text = "Fechar";
+            buttonNo.Size = new Size(100, 30);
+            buttonNo.Location = new Point(200, 300);
+            buttonNo.FlatStyle = FlatStyle.Flat;
+            buttonNo.FlatAppearance.BorderSize = 1;
+            buttonNo.Font = new Font("Roboto", 8, FontStyle.Regular);
+            buttonNo.ForeColor = ColorTranslator.FromHtml("#ffffff");
+            buttonNo.BackColor = ColorTranslator.FromHtml("#78909C");
+            buttonNo.Click += (sender, e) =>
+            {
+                formConfirmReserve.Close();
+            };
+
+            formConfirmReserve.Controls.Add(listBox);
+            formConfirmReserve.Controls.Add(buttonYes);
+            formConfirmReserve.Controls.Add(buttonNo);
+            formConfirmReserve.Size = new Size(350, 350);
+            formConfirmReserve.FormBorderStyle = FormBorderStyle.None;
+            formConfirmReserve.StartPosition = FormStartPosition.CenterScreen;
+            formConfirmReserve.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            
+            formConfirmReserve.ShowDialog();
+
+        }
+
+
+
+        
 
 
 

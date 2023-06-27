@@ -62,11 +62,11 @@ namespace Controllers
             }
         }
 
-        public static void findByNumberRoom(int numberRoom)
+        public static Models.Reservation findByNumberRoom(int numberRoom)
         {
             try
             {
-                Models.Reservation.findByNumberRoom(numberRoom);
+                return Models.Reservation.findByNumberRoom(numberRoom);
             }
             catch (System.Exception e)
             {

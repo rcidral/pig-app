@@ -7,15 +7,41 @@ namespace Views
     {
         public Label lblName;
         public TextBox txtName;
+        public Label lblBirth;
+        public DateTimePicker dtBirth;
+        public Label lblPayment;
+        public TextBox txtPayment;
+        public Label lblDocument;
+        public TextBox txtDocument;
+        public Label lblMotherName;
+        public TextBox txtMotherName;
+        public Label lblPassword;
+        public TextBox txtPassword;
+        public Label lblType;
+        public ComboBox cboType;
         public Button btCrt;
 
         public void btCrt_Click(object sender, EventArgs e)
         {
             try
             {
+                string name = txtName.Text;
+                DateTime birth = dtBirth.Value;
+                int payment = Convert.ToInt32(Convert.ToDouble(txtPayment.Text));
+                int document = Convert.ToInt32(txtDocument.Text);
+                string motherName = txtMotherName.Text;
+                string password = txtPassword.Text;
+                bool type = cboType.Text == "Manager" ? true : false;
+
                 Models.Employee employee = new Models.Employee
                 (
-                    txtName.Text
+                    name,
+                    birth,
+                    payment,
+                    document,
+                    motherName,
+                    password,
+                    type
                 );
 
                 Controllers.Employee.store(employee);

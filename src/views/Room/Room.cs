@@ -122,18 +122,16 @@ namespace Views
             listRoom.Size = new Size(680, 260);
             listRoom.Location = new Point(50, 50);
             listRoom.View = View.Details;
-            listRoom.Columns.Add("Id", -2, HorizontalAlignment.Left);
             listRoom.Columns.Add("Floor", -2, HorizontalAlignment.Left);
             listRoom.Columns.Add("Number", -2, HorizontalAlignment.Left);
             listRoom.Columns.Add("Description", -2, HorizontalAlignment.Left);
             listRoom.Columns.Add("Value", -2, HorizontalAlignment.Left);
             listRoom.Columns.Add("Color", -2, HorizontalAlignment.Left);
-            listRoom.Columns[0].Width = 30;
-            listRoom.Columns[1].Width = 50;
-            listRoom.Columns[2].Width = 70;
-            listRoom.Columns[3].Width = 100;
-            listRoom.Columns[4].Width = 80;
-            listRoom.Columns[5].Width = 60;
+            listRoom.Columns[0].Width = 60;
+            listRoom.Columns[1].Width = 80;
+            listRoom.Columns[2].Width = 100;
+            listRoom.Columns[3].Width = 60;
+            listRoom.Columns[4].Width = 60;
             listRoom.FullRowSelect = true;
             this.Controls.Add(listRoom);
 

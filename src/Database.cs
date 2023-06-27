@@ -5,7 +5,7 @@ namespace Database
 {
     public class Context : DbContext
     {
-        public string connection = "Server=localhost;User Id=root;Database=pig_app";
+        public string connection = "Server=localhost;User Id=root;Password=Wheniparkmyrr_1234;Database=pig_app_";
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Product> Products { get; set; }

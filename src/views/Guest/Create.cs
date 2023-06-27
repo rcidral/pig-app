@@ -15,22 +15,30 @@ namespace Views
         public TextBox TxtPayment;
         public TextBox TxtDocument;
         public TextBox TxtMothersName;
+        public Label lblPassword;
+        public TextBox txtPassword;
         public Button btCreate;
 
         public void btCrt_Click(object sender, EventArgs e)
         {
             try
             {
+                string name = TxtName.Text;
+                DateTime birth = DtBirth.Value;
                 int payment = Convert.ToInt32(Convert.ToDouble(TxtPayment.Text));
+                int document = Convert.ToInt32(TxtDocument.Text);
+                string mothersName = TxtMothersName.Text;
+                string password = txtPassword.Text;
+
 
                 Models.Guest guest = new Models.Guest(
-                TxtName.Text,
-                DtBirth.Value,
-                payment,
-                Convert.ToInt32(TxtDocument.Text),
-                 TxtMothersName.Text
-                 );
-                
+                    name,
+                    birth,
+                    payment,
+                    document,
+                    mothersName,
+                    password
+                );
 
                 Controllers.Guest.store(guest);
                 MessageBox.Show("Guest created successfully!");
@@ -118,6 +126,17 @@ namespace Views
             TxtMothersName.Location = new System.Drawing.Point(80, 160);
             TxtMothersName.Size = new System.Drawing.Size(150, 20);
             this.Controls.Add(TxtMothersName);
+
+            lblPassword = new Label();
+            lblPassword.Text = "Password:";
+            lblPassword.Location = new System.Drawing.Point(10, 190);
+            lblPassword.Size = new System.Drawing.Size(50, 20);
+            this.Controls.Add(lblPassword);
+
+            txtPassword = new TextBox();
+            txtPassword.Location = new System.Drawing.Point(80, 190);
+            txtPassword.Size = new System.Drawing.Size(150, 20);
+            this.Controls.Add(txtPassword);
 
             btCreate = new Button();
             btCreate.Text = "Create";

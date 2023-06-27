@@ -91,7 +91,6 @@ namespace Views
             buttonDelete.BackColor = colorButtonDelete;
             buttonDelete.Click += (sender, args) =>
             {   
-                // DeleteRoom();
                 this.Close();
                 this.Dispose();
             };

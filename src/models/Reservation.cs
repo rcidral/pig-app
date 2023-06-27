@@ -115,17 +115,13 @@ namespace Models
             }
         }
 
-        public static void findByNumberRoom(int numberRoom)
+        public static Models.Reservation findByNumberRoom(int numberRoom)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    List<Reservation> reservations = context.Reservations.Where(reservation => reservation.RoomNumber == numberRoom).ToList();
-                    foreach (Reservation reservation in reservations)
-                    {
-                        Console.WriteLine(reservation.Guest.Name);
-                    }
+                    return context.Reservations.FirstOrDefault(reservation => reservation.RoomNumber == numberRoom);
                 }
             }
             catch (System.Exception e)
@@ -133,5 +129,6 @@ namespace Models
                 throw e;
             }
         }
+
     }
 }
