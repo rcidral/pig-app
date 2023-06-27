@@ -116,5 +116,23 @@ namespace Models
                 throw e;
             }
         }
+        public static void Login(string name, string password)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    Employee employee = context.Employees.Where(employee => employee.Name == name && employee.Password == password).FirstOrDefault();
+                    if (employee == null)
+                    {
+                        throw new Exception("Usuário ou senha incorretos");
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

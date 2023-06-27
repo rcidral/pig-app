@@ -69,6 +69,17 @@ namespace Controllers
                 throw e;
             }
         }
+        public static void login(string name, string password) 
+        {
+            try
+            {
+                Models.Employee.Login(name, password);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
 

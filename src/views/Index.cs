@@ -19,8 +19,32 @@ namespace Views
 
 
 
+        public static bool IsRegisteredEmployee()
+        {
+            try
+            {
+                string login = nameTextBox.Text;
+                string password = passwordTextBox.Text;
 
-        public static bool IsRegistered()
+                Controllers.Employee.login(
+                    login,
+                    password
+                );
+
+            }
+            catch( System.Exception e )
+            {
+                MessageBox.Show(
+                    e.Message,
+                    "Senha ou Login Incorreto",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return false;
+            }           
+            return true;
+        }
+        public static bool IsRegisteredGuest()
         {
             try
             {
@@ -135,7 +159,7 @@ namespace Views
             btnToMainScreen.Dock = DockStyle.Fill;
             btnToMainScreen.Click += (sender, e) =>
             {
-                if (!IsRegistered())
+                if (!IsRegisteredGuest() || IsRegisteredEmployee())
                 {
                     MessageBox.Show(
                         "Você não está cadastrado",
@@ -144,11 +168,14 @@ namespace Views
                         MessageBoxIcon.Information
                     );
                 }
-
-                initialScreen.Hide();
-                var mainScreen = new MainScreen();
-                mainScreen.ShowDialog();
-                initialScreen.Close();
+                else
+                {
+                    initialScreen.Hide();
+                    var mainScreen = new MainScreen();
+                    mainScreen.ShowDialog();
+                    initialScreen.Close();
+                }
+               
             };
 
             btnExit = new Button();
