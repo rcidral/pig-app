@@ -251,7 +251,6 @@ namespace Views
             checkInDTPicker.Size = new Size(130, 35);
             checkInDTPicker.Location = new Point((this.ClientSize.Width - checkInDTPicker.Width) / 5, checkInLabel.Bottom + 3);
             checkInDTPicker.Font = new Font("Arial", 12, FontStyle.Regular);
-            checkInDTPicker.FlatStyle = FlatStyle.Flat;
             checkInDTPicker.Format = DateTimePickerFormat.Short;
             checkInDTPicker.Value = DateTime.Now;
             checkInDTPicker.MinDate = DateTime.Today; 
