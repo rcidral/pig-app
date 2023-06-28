@@ -53,18 +53,18 @@ namespace Views
         {
             this.product = product;
 
-            this.Text = "Register a product";
+            this.Text = "Editar Produtos";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            Color color = System.Drawing.ColorTranslator.FromHtml("#E7E7E7");
+            Color color = System.Drawing.ColorTranslator.FromHtml("#F7F7F7");
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Size = new System.Drawing.Size(300, 250);
+            this.Size = new System.Drawing.Size(300, 360);
 
             this.lblTitle = new Label();
-            this.lblTitle.Text = "Cadastro de produtos";
+            this.lblTitle.Text = "Editar produtos";
             this.lblTitle.Font = new Font("Segoe UI", 13f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new Point(40, 30);
             this.lblTitle.Size = new Size(250, 40);
@@ -106,7 +106,7 @@ namespace Views
             }
 
             this.btUpd = new Button();
-            this.btUpd.Text = "Add";
+            this.btUpd.Text = "Adicionar";
             // this.btUpd.Location = new Point(80, cboType.Bottom + 10);
             this.btUpd.Size = new Size(110, 35);
             this.btUpd.Font = new Font("Roboto", 8, FontStyle.Regular);
@@ -118,7 +118,7 @@ namespace Views
             this.btUpd.Click += new EventHandler(this.btUpd_Click);
 
             this.btClose = new Button();
-            this.btClose.Text = "Close";
+            this.btClose.Text = "Fechar";
             // this.btClose.Location = new Point(80, btUpd.Bottom + 10);
             this.btClose.Size = new Size(110, 35);
             this.btClose.BackColor = ColorTranslator.FromHtml("#E0E6ED");

@@ -68,7 +68,7 @@ namespace Views
         {
             this.guest = guest;
 
-            this.Text = "Register a Guest";
+            this.Text = "Editar hospede";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -76,13 +76,12 @@ namespace Views
             Color color = System.Drawing.ColorTranslator.FromHtml("#F7F7F7");
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Size = new System.Drawing.Size(280, 360);
-            this.Font = new System.Drawing.Font("Arial", 25, System.Drawing.FontStyle.Bold);
+            this.Size = new System.Drawing.Size(300, 560);
 
             this.lblTitle = new Label();
-            this.lblTitle.Text = "Cadastro de hospede";
+            this.lblTitle.Text = "Editar hospede";
             this.lblTitle.Font = new Font("Segoe UI", 13f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new Point(40, 30);
+            this.lblTitle.Location = new Point(75, 30);
             this.lblTitle.Size = new Size(250, 40);
 
             this.lblName = new Label();

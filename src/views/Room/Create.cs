@@ -105,12 +105,12 @@ namespace Views
                this.BackColor = color;
                this.ShowIcon = false;
                this.ShowInTaskbar = false;
-               this.Size = new System.Drawing.Size(300, 480);
+               this.Size = new System.Drawing.Size(300, 500);
 
                this.lblTitle = new Label();
                this.lblTitle.Text = "Cadastro de quarto";
                this.lblTitle.Font = new Font("Segoe UI", 13f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-               this.lblTitle.Location = new Point(40, 30);
+               this.lblTitle.Location = new Point(60, 30);
                this.lblTitle.Size = new Size(250, 40);
 
                this.lblFloor = new Label();

@@ -115,13 +115,25 @@ namespace Views
             this.ShowInTaskbar = false;
 
             listEmployee = new ListView();
-            listEmployee.Size = new Size(680, 260);
+            listEmployee.Size = new Size(680, 280);
             listEmployee.Location = new Point(50, 50);
             listEmployee.View = View.Details;
             listEmployee.Columns.Add("Id", -2, HorizontalAlignment.Left);
-            listEmployee.Columns.Add("Name", -2, HorizontalAlignment.Left);
+            listEmployee.Columns.Add("Nome", -2, HorizontalAlignment.Left);
+            listEmployee.Columns.Add("Aniversário", -2, HorizontalAlignment.Left);
+            listEmployee.Columns.Add("Pagamento", -2, HorizontalAlignment.Left);
+            listEmployee.Columns.Add("Documento", -2, HorizontalAlignment.Left);
+            listEmployee.Columns.Add("Nome da mãe", -2, HorizontalAlignment.Left);
+            listEmployee.Columns.Add("Senha", -2, HorizontalAlignment.Left);
+            listEmployee.Columns.Add("Tipo", -2, HorizontalAlignment.Left);
             listEmployee.Columns[0].Width = 30;
             listEmployee.Columns[1].Width = 100;
+            listEmployee.Columns[2].Width = 80;
+            listEmployee.Columns[3].Width = 80;
+            listEmployee.Columns[4].Width = 100;
+            listEmployee.Columns[5].Width = 100;
+            listEmployee.Columns[6].Width = 60;
+            listEmployee.Columns[7].Width = 60;
             listEmployee.FullRowSelect = true;
             this.Controls.Add(listEmployee);
 

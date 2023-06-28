@@ -60,7 +60,7 @@ namespace Views
             this.BackColor = color;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Size = new System.Drawing.Size(300, 380);
+            this.Size = new System.Drawing.Size(300, 360);
 
             this.lblTitle = new Label();
             this.lblTitle.Text = "Cadastro de produtos";
