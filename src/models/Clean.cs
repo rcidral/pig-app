@@ -7,15 +7,15 @@ namespace Models
     {
         public int Id { get; set; }
 
-        public int RoomId { get; set; }
+        public int RoomNumber { get; set; }
 
         public int EmployeeId { get; set; }
 
         public DateTime Date { get; set; }
 
-        public Clean(int roomId, int employeeId)
+        public Clean(int roomNumber, int employeeId)
         {
-            this.RoomId = roomId;
+            this.RoomNumber = roomNumber;
             this.EmployeeId = employeeId;
             this.Date = DateTime.Now;
         }
@@ -73,7 +73,7 @@ namespace Models
                 using (Context context = new Context())
                 {
                     Clean oldClean = context.Cleans.Find(id);
-                    oldClean.RoomId = clean.RoomId;
+                    oldClean.RoomNumber = clean.RoomNumber;
                     oldClean.EmployeeId = clean.EmployeeId;
                     oldClean.Date = clean.Date;
                     context.SaveChanges();
@@ -94,6 +94,20 @@ namespace Models
                     Clean clean = context.Cleans.Find(id);
                     context.Cleans.Remove(clean);
                     context.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+         public static Models.Clean findByNumberRoom(int numberRoom)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    return context.Cleans.FirstOrDefault(cls => cls.RoomNumber == numberRoom);
                 }
             }
             catch (System.Exception e)

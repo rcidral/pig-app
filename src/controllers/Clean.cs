@@ -63,5 +63,18 @@ namespace Controllers
                 throw;
             }
         }
+
+        public static Models.Clean findByNumberRoom(int numberRoom)
+        {
+            try
+            {
+                return Models.Clean.findByNumberRoom(numberRoom);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }

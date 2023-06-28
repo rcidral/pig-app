@@ -19,6 +19,46 @@ namespace Views
 
 
 
+
+public static bool GetLogin() {
+            try {
+                string login = nameTextBox.Text;
+                string password = passwordTextBox.Text;
+
+                Models.Guest guest = Controllers.Guest.Login(
+                    login,
+                    password
+                );
+                if(guest == null) {
+                    Models.Employee employee = Controllers.Employee.Login(
+                        login,
+                        password
+                    );
+                    if(employee == null) {
+                        MessageBox.Show(
+                            "Usuário não encontrado",
+                            "Usuário não encontrado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+
+                        return false;
+                    }
+                }
+                return true;
+
+            } catch (System.Exception e) {
+                MessageBox.Show(
+                    e.Message,
+                    "Senha ou Login Incorreto",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
+        }
+
         public static Models.Employee GetUserLogin()
         {
 
@@ -34,71 +74,71 @@ namespace Views
         }    
 
 
-        public static bool GetGuestLogin()
-        {
-            try
-            {
-                string login = nameTextBox.Text;
-                string password = passwordTextBox.Text;
+        // public static bool GetGuestLogin()
+        // {
+        //     try
+        //     {
+        //         string login = nameTextBox.Text;
+        //         string password = passwordTextBox.Text;
 
-                Models.Guest guest = Controllers.Guest.Login(
-                    login,
-                    password
-                );
+        //         Models.Guest guest = Controllers.Guest.Login(
+        //             login,
+        //             password
+        //         );
 
-                return true;
-            }
-            catch (System.Exception e)
-            {
-                MessageBox.Show(
-                    e.Message,
-                    "Senha ou Login Incorreto",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+        //         return true;
+        //     }
+        //     catch (System.Exception e)
+        //     {
+        //         MessageBox.Show(
+        //             e.Message,
+        //             "Senha ou Login Incorreto",
+        //             MessageBoxButtons.OK,
+        //             MessageBoxIcon.Error
+        //         );
 
-                return false;
-            }
-        }
+        //         return false;
+        //     }
+        // }
 
-        public static bool GetEmployeeLogin()
-        {
-            try
-            {
-                string login = nameTextBox.Text;
-                string password = passwordTextBox.Text;
+        // public static bool GetEmployeeLogin()
+        // {
+        //     try
+        //     {
+        //         string login = nameTextBox.Text;
+        //         string password = passwordTextBox.Text;
 
-                Models.Employee employee = Controllers.Employee.Login(
-                    login,
-                    password
-                );
+        //         Models.Employee employee = Controllers.Employee.Login(
+        //             login,
+        //             password
+        //         );
 
-                return true;
-            }
-            catch(System.Exception e)
-            {
-                MessageBox.Show(
-                    e.Message,
-                    "Senha ou Login Incorreto",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+        //         return true;
+        //     }
+        //     catch(System.Exception e)
+        //     {
+        //         MessageBox.Show(
+        //             e.Message,
+        //             "Senha ou Login Incorreto",
+        //             MessageBoxButtons.OK,
+        //             MessageBoxIcon.Error
+        //         );
 
-                return false;
-            }
-        }
+        //         return false;
+        //     }
+        // }
 
-        public static bool IsUserExisting()
-        {
-            if ((GetGuestLogin() == true) || (GetEmployeeLogin() == true))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        // public static bool IsUserExisting()
+        // {
+        //     if ((GetGuestLogin() == true) || (GetEmployeeLogin() == true))
+        //     {
+        //         return true;
+        //     }
+        //     else
+        //     {
+        //         return false;
+        //     }
+        // }
 
         public static void Index()
         {
@@ -190,7 +230,7 @@ namespace Views
             btnToMainScreen.Dock = DockStyle.Fill;
             btnToMainScreen.Click += (sender, e) =>
             {
-                if (IsUserExisting())
+                if (GetLogin())
                 {
                     initialScreen.Hide();
                     MainScreen mainScreen = new MainScreen();

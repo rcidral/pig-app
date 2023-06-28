@@ -71,6 +71,8 @@ namespace Views
                 int guestId = Convert.ToInt32(clientCbo.SelectedValue);
                 int daysStay = Convert.ToInt32(((KeyValuePair<int, string>)daysStayCbo.SelectedItem).Key);
                 DateTime checkIn = checkInDTPicker.Value; 
+
+
                     
                 double total = room.Value * daysStay;
 
@@ -82,10 +84,7 @@ namespace Views
                     total
                 );
 
-                Controllers.Reservation.store(reservation);  
-
-                // var mainScreen = new MainScreen(true);
-                // mainScreen.Show();         
+                Controllers.Reservation.store(reservation);    
 
                 this.Close();
 
@@ -98,77 +97,131 @@ namespace Views
             }
         }
 
-        public void ConfirmCheckIn(int idRoom)
+        public void ConfirmReserve(int roomId)
         {
-            // MainScreen mainScreen = new MainScreen(true);
 
-            List<Models.Room> rooms = Controllers.Room.show(idRoom);
+            List<Models.Room> rooms = Controllers.Room.show(roomId);
             Models.Room room = rooms[0];
-            
-            Form formConfirmCheckIn = new Form();
-            formConfirmCheckIn.Text = "Confirmação de Reserva " + room.Number;
-            formConfirmCheckIn.Size = new Size(350, 400);
-            formConfirmCheckIn.StartPosition = FormStartPosition.CenterScreen;
-            formConfirmCheckIn.FormBorderStyle = FormBorderStyle.FixedSingle;
-            formConfirmCheckIn.MaximizeBox = false;
-            formConfirmCheckIn.BackColor = ColorTranslator.FromHtml("#E0E6ED");
 
+            Form formConfirmReserve = new Form();
+            formConfirmReserve.Text = "Reserva - " + roomId;
+            formConfirmReserve.Size = new Size(300, 400);
+            formConfirmReserve.StartPosition = FormStartPosition.CenterScreen;
+            formConfirmReserve.FormBorderStyle = FormBorderStyle.FixedSingle;
+            formConfirmReserve.MaximizeBox = false;
+            formConfirmReserve.MinimizeBox = false;
+            formConfirmReserve.ControlBox = true;
+            formConfirmReserve.BackColor = ColorTranslator.FromHtml("#E0E6ED");
 
-            DateTime checkIn = checkInDTPicker.Value;
 
             Label titleMessageBox = new Label();
-            titleMessageBox.Text = "Confirmar reserva";
+            titleMessageBox.Text = "Reserva - " + roomId;
             titleMessageBox.AutoSize = true;
             titleMessageBox.Location = new Point(30, 30);
-            titleMessageBox.Location = new Point((this.ClientSize.Width - titleMessageBox.Width) / 6, 40);
             titleMessageBox.Font = new Font("Arial", 16, FontStyle.Bold);
             titleMessageBox.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
-            formConfirmCheckIn.Controls.Add(titleMessageBox);
-
-            ListBox listBox = new ListBox();
-            listBox.Location = new Point(45, 120);
-            listBox.Size = new Size(250, 120);
-            listBox.Font = new Font("Arial", 11, FontStyle.Regular);
-            listBox.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
-            listBox.BorderStyle = BorderStyle.None;
-            listBox.BackColor = ColorTranslator.FromHtml("#E0E6ED");
-            listBox.Margin = new Padding(listBox.Margin.Left, listBox.Margin.Top + 10, listBox.Margin.Right, listBox.Margin.Bottom);
 
 
-            listBox.Items.Add("Hospede: " + clientCbo.SelectedValue.ToString());
-            listBox.Items.Add("Quarto: " + idRoom);
-            listBox.Items.Add("Dias: " + Convert.ToInt32(((KeyValuePair<int, string>)daysStayCbo.SelectedItem).Key));
-            listBox.Items.Add("CheckIn: " + checkIn.Date.ToString("dd/MM"));
-            listBox.Items.Add("CheckOut: " + checkInDTPicker.Value.AddDays(Convert.ToInt32(((KeyValuePair<int, string>)daysStayCbo.SelectedItem).Key)));
-            listBox.Items.Add("Valor: " + room.Value * Convert.ToInt32(((KeyValuePair<int, string>)daysStayCbo.SelectedItem).Key));
+            Label lblguest = new Label();
+            lblguest.Text = "Hospede: " + clientCbo.SelectedText.ToString();
+            lblguest.Location = new Point(40, titleMessageBox.Bottom + 30);      
+            lblguest.BackColor = Color.White; 
+            lblguest.Font = new Font("Roboto", 10, FontStyle.Regular);
+            lblguest.Size = new Size(200, 20);
 
-            formConfirmCheckIn.Controls.Add(listBox);
+            Label lblRoom = new Label();
+            lblRoom.Text = "Quarto: " + roomId;
+            lblRoom.BackColor = Color.White; 
+            lblRoom.Font = new Font("Roboto", 10, FontStyle.Regular);
+            lblRoom.Location = new Point(40, lblguest.Bottom + 10);            
+            lblRoom.Size = new Size(200, 20);
 
-            Button confirmBtnMessageBox = new Button();
-            confirmBtnMessageBox.Text = "Confirmar";
-            confirmBtnMessageBox.Size = new Size(100, 30);
-            confirmBtnMessageBox.Location = new Point(95, 300);
-            confirmBtnMessageBox.Font = new Font("Roboto", 8, FontStyle.Regular);
-            confirmBtnMessageBox.FlatStyle = FlatStyle.Flat;
-            confirmBtnMessageBox.Click += (sender, e) =>
+            Label lblDays = new Label();
+            lblDays.Text = "Dias: " + Convert.ToInt32(((KeyValuePair<int, string>)daysStayCbo.SelectedItem).Key);
+            lblDays.BackColor = Color.White; 
+            lblDays.Font = new Font("Roboto", 10, FontStyle.Regular);
+            lblDays.Location = new Point(40, lblRoom.Bottom + 10);            
+            lblDays.Size = new Size(200, 20);
+
+            Label lblCheckIn = new Label();
+            lblCheckIn.Text = "CheckIn: " + checkInDTPicker.Text;
+            lblCheckIn.BackColor = Color.White; 
+            lblCheckIn.Font = new Font("Roboto", 10, FontStyle.Regular);
+            lblCheckIn.Location = new Point(40, lblDays.Bottom + 10);            
+            lblCheckIn.Size = new Size(200, 20);
+
+            Label lblCheckOut = new Label();
+            lblCheckOut.Text = "CheckOut: " + checkInDTPicker.Value.AddDays(Convert.ToInt32(((KeyValuePair<int, string>)daysStayCbo.SelectedItem).Key));
+            lblCheckOut.BackColor = Color.White; 
+            lblCheckOut.Font = new Font("Roboto", 10, FontStyle.Regular);
+            lblCheckOut.Location = new Point(40, lblCheckIn.Bottom + 10);            
+            lblCheckOut.Size = new Size(200, 20);
+
+            Label lblTotal = new Label();
+            lblTotal.Text = "Valor: " + Convert.ToInt32(((KeyValuePair<int, string>)daysStayCbo.SelectedItem).Key) * room.Value;
+            lblTotal.BackColor = Color.White; 
+            lblTotal.Font = new Font("Roboto", 10, FontStyle.Regular);
+            lblTotal.Location = new Point(40, lblCheckOut.Bottom + 10);            
+            lblTotal.Size = new Size(200, 20);
+
+            Panel panel = new Panel();
+            panel.Size = new Size(220, 200);
+            panel.Location = new Point(30, 80);
+            panel.BackColor = Color.White;
+            formConfirmReserve.Controls.Add(panel);
+
+            panel.Controls.Add(lblguest);
+            panel.Controls.Add(lblRoom);
+            panel.Controls.Add(lblDays);
+            panel.Controls.Add(lblCheckIn);
+            panel.Controls.Add(lblCheckOut);
+            panel.Controls.Add(lblTotal);
+            
+
+            Button buttonClean = new Button();
+            buttonClean.Text = "Confirmar";
+            buttonClean.Size = new Size(110, 35);
+            buttonClean.Location = new Point(25, 300);
+            buttonClean.FlatStyle = FlatStyle.Flat;   
+            buttonClean.FlatAppearance.BorderSize = 1;
+            buttonClean.Font = new Font("Roboto", 8, FontStyle.Regular);
+            buttonClean.ForeColor = ColorTranslator.FromHtml("#ffffff");
+            buttonClean.BackColor = ColorTranslator.FromHtml("#78909C");
+            buttonClean.Click += (sender, e) =>
             {
-                SaveCheckIn(idRoom);
-                formConfirmCheckIn.Close();
+                SaveCheckIn(roomId);
+                formConfirmReserve.Close();
             };
-            formConfirmCheckIn.Controls.Add(confirmBtnMessageBox);
 
-            Button cancelBtnMessageBox = new Button();
-            cancelBtnMessageBox.Text = "Cancelar";
-            cancelBtnMessageBox.Size = new Size(100, 30);
-            cancelBtnMessageBox.Location = new Point(200, 300);
-            cancelBtnMessageBox.FlatStyle = FlatStyle.Flat;
-            cancelBtnMessageBox.Click += (sender, e) =>
+            Button buttonYes = new Button();
+            buttonYes.Text = "Cancelar reserva";
+            buttonYes.Size = new Size(110, 35);
+            buttonYes.Location = new Point(145, 300);
+            buttonYes.FlatStyle = FlatStyle.Flat;   
+            buttonYes.FlatAppearance.BorderSize = 1;
+            buttonYes.Font = new Font("Roboto", 8, FontStyle.Regular);
+            buttonYes.ForeColor = ColorTranslator.FromHtml("#ffffff");
+            buttonYes.BackColor = ColorTranslator.FromHtml("#78909C");
+            buttonYes.Click += (sender, e) =>
             {
-                formConfirmCheckIn.Close();
+               formConfirmReserve.Close();
             };
-            formConfirmCheckIn.Controls.Add(cancelBtnMessageBox);
 
-            formConfirmCheckIn.ShowDialog();
+
+            formConfirmReserve.Controls.Add(buttonYes);
+            formConfirmReserve.Controls.Add(buttonClean);
+            formConfirmReserve.Controls.Add(titleMessageBox);
+            formConfirmReserve.Controls.Add(lblRoom);
+            formConfirmReserve.Controls.Add(lblguest);
+            formConfirmReserve.Controls.Add(lblCheckIn);
+            formConfirmReserve.Controls.Add(lblCheckOut);
+            formConfirmReserve.Controls.Add(lblDays);
+            formConfirmReserve.Controls.Add(lblTotal);
+            formConfirmReserve.Controls.Add(panel);
+
+                
+            formConfirmReserve.ShowDialog();
+
         }
 
         public CheckIn(int roomId)
@@ -286,9 +339,7 @@ namespace Views
             btnReserve.Dock = DockStyle.Fill;
             btnReserve.Click += (sender, e) =>
             {
-                ConfirmCheckIn(roomId);
-                // var toMainScreen1 = new MainScreen(true);
-                // toMainScreen1.Close();
+                ConfirmReserve(roomId);
             };
             buttonsLayoutPanel.Controls.Add(btnReserve, 2, 0);
 
