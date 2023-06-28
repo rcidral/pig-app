@@ -145,33 +145,79 @@ namespace Views
 
             RefreshList();
 
-            Button btCrt = new Button();
-            btCrt.Text = "Add";
-            btCrt.Size = new Size(100, 30);
-            btCrt.Location = new Point(50, 330);
-            btCrt.Click += new EventHandler(btCrt_Click);
-            this.Controls.Add(btCrt);
+            TableLayoutPanel layoutPanel = new TableLayoutPanel();
+            layoutPanel.Dock = DockStyle.Bottom;
+            layoutPanel.AutoSize = true;
+            layoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            layoutPanel.Padding = new Padding(10, 10, 10, 10);
+            layoutPanel.BackColor = ColorTranslator.FromHtml("#3C4858");
+            layoutPanel.ColumnCount = 4;
+            layoutPanel.RowCount = 1;
+            layoutPanel.ColumnStyles.Clear();
 
+            for (int i = 0; i < layoutPanel.ColumnCount; i++)
+            {
+                layoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            }
+
+            Button btCrt = new Button();
+            btCrt.Text = "Adicionar";
+            btCrt.Size = new Size(30, 30);
+            // btCrt.Location = new Point(50, 330);
+            btCrt.Font = new Font("Roboto", 8, FontStyle.Regular);
+            btCrt.FlatStyle = FlatStyle.Flat;
+            btCrt.FlatAppearance.BorderSize = 0;
+            btCrt.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            btCrt.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            btCrt.Dock = DockStyle.Fill;
+            btCrt.Click += new EventHandler(btCrt_Click);
+            
             Button btUpd = new Button();
-            btUpd.Text = "Update";
-            btUpd.Size = new Size(100, 30);
-            btUpd.Location = new Point(170, 330);
+            btUpd.Text = "Editar";
+            btUpd.Size = new Size(30, 30);
+            //btUpd.Location = new Point(170, 330);
+            btUpd.Font = new Font("Roboto", 8, FontStyle.Regular);
+            btUpd.FlatStyle = FlatStyle.Flat;
+            btUpd.FlatAppearance.BorderSize = 0;
+            btUpd.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            btUpd.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            btUpd.Dock = DockStyle.Fill;
             btUpd.Click += new EventHandler(btUpd_Click);
             this.Controls.Add(btUpd);
 
             Button btDelete = new Button();
-            btDelete.Text = "Delete";
-            btDelete.Size = new Size(100, 30);
-            btDelete.Location = new Point(290, 330);
+            btDelete.Text = "Deletar";
+            btDelete.Size = new Size(30, 30);
+            // btDelete.Location = new Point(290, 330);
+            btDelete.Font = new Font("Roboto", 8, FontStyle.Regular);
+            btDelete.FlatStyle = FlatStyle.Flat;
+            btDelete.FlatAppearance.BorderSize = 0;
+            btDelete.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            btDelete.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            btDelete.Dock = DockStyle.Fill;
             btDelete.Click += new EventHandler(btDelete_Click);
             this.Controls.Add(btDelete);
 
             Button btClose = new Button();
-            btClose.Text = "Return";
-            btClose.Size = new Size(100, 30);
-            btClose.Location = new Point(410, 330);
-            btClose.Click += new EventHandler(btClose_Click);
-            this.Controls.Add(btClose);
+            btClose.Text = "Voltar";
+            btClose.Size = new Size(30, 30);
+            // btClose.Location = new Point(410, 330);
+            btClose.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            btClose.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            btClose.Font = new Font("Roboto", 8, FontStyle.Regular);
+            btClose.FlatStyle = FlatStyle.Flat;
+            btClose.FlatAppearance.BorderSize = 0;
+            btClose.Dock = DockStyle.Fill;
+            btClose.Click += (sender, s) =>
+            {
+                this.Close();
+            };
+            
+            layoutPanel.Controls.Add(btCrt, 0, 0);
+            layoutPanel.Controls.Add(btUpd, 1, 0);
+            layoutPanel.Controls.Add(btDelete, 2, 0);
+            layoutPanel.Controls.Add(btClose, 3, 0); 
+            this.Controls.Add(layoutPanel);
 
         }
     }

@@ -69,7 +69,7 @@ namespace Views
             this.lblTitle.Size = new Size(250, 40);
 
             this.lblName = new Label();
-            this.lblName.Text = "Name";
+            this.lblName.Text = "Nome";
             this.lblName.Location = new Point(33, lblTitle.Bottom + 10);
             this.lblName.Size = new Size(70, 20);
 

@@ -220,6 +220,7 @@ namespace Views
 
                this.Controls.Add(this.tableLayoutPanel);
 
+               this.Controls.Add(this.lblTitle);
                this.Controls.Add(this.lblNumber);
                this.Controls.Add(this.lblFloor);
                this.Controls.Add(this.lblDescription);
