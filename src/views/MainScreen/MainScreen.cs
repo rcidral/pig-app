@@ -523,7 +523,7 @@ namespace Views
 
             Form formConfirmReserve = new Form();
             formConfirmReserve.Text = "Reserva - " + roomId;
-            formConfirmReserve.Size = new Size(300, 400);
+            formConfirmReserve.Size = new Size(400, 400);
             formConfirmReserve.StartPosition = FormStartPosition.CenterScreen;
             formConfirmReserve.FormBorderStyle = FormBorderStyle.FixedSingle;
             formConfirmReserve.MaximizeBox = false;
@@ -584,7 +584,7 @@ namespace Views
             lblTotal.Size = new Size(200, 20);
 
             Panel panel = new Panel();
-            panel.Size = new Size(220, 200);
+            panel.Size = new Size(320, 200);
             panel.Location = new Point(30, 80);
             panel.BackColor = Color.White;
             formConfirmReserve.Controls.Add(panel);
@@ -615,7 +615,7 @@ namespace Views
             Button buttonYes = new Button();
             buttonYes.Text = "Cancelar reserva";
             buttonYes.Size = new Size(110, 35);
-            buttonYes.Location = new Point(145, 300);
+            buttonYes.Location = new Point(130, 300);
             buttonYes.FlatStyle = FlatStyle.Flat;   
             buttonYes.FlatAppearance.BorderSize = 1;
             buttonYes.Font = new Font("Roboto", 8, FontStyle.Regular);
@@ -630,11 +630,27 @@ namespace Views
                 }
                 formConfirmReserve.Close();
             };
+            Button buttonProducts = new Button();
+            buttonProducts.Text = "Produtos";
+            buttonProducts.Size = new Size(110, 35);
+            buttonProducts.Location = new Point(245, 300);
+            buttonProducts.FlatStyle = FlatStyle.Flat;   
+            buttonProducts.FlatAppearance.BorderSize = 1;
+            buttonProducts.Font = new Font("Roboto", 8, FontStyle.Regular);
+            buttonProducts.ForeColor = ColorTranslator.FromHtml("#ffffff");
+            buttonProducts.BackColor = ColorTranslator.FromHtml("#78909C");
+            buttonProducts.Click += (sender, e) =>
+            {
+                var products = new Views.List();
+                products.Show();
+            };
 
             if(isAdmin)
             {
                 formConfirmReserve.Controls.Add(buttonYes);
                 formConfirmReserve.Controls.Add(buttonClean);
+                formConfirmReserve.Controls.Add(buttonProducts);
+
             }
 
             // formConfirmReserve.Controls.Add(buttonNo);
