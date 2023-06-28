@@ -15,6 +15,7 @@ namespace Views
        public ComboBox comboBoxDescription;
        public TextBox txtValue;
        public TextBox txtColor;
+       public TableLayoutPanel tableLayoutPanel;
        public Button btCrt;
 
           public void btCrt_Click(object sender, EventArgs e)
@@ -98,21 +99,21 @@ namespace Views
                this.FormBorderStyle = FormBorderStyle.FixedSingle;
                this.MaximizeBox = false;
                this.MinimizeBox = false;
-               Color color = System.Drawing.ColorTranslator.FromHtml("#F7F7F7");
-               this.BackColor = color;
                this.ShowIcon = false;
                this.ShowInTaskbar = false;
-               this.Size = new System.Drawing.Size(300, 300);
+               this.Size = new System.Drawing.Size(350, 400);
+               this.BackColor = System.Drawing.ColorTranslator.FromHtml("#F7F7F7");
 
                this.lblFloor = new Label();
                this.lblFloor.Text = "Floor";
-               this.lblFloor.Location = new Point(10, 70);            
-               this.lblFloor.Size = new Size(50, 20);
+               this.lblFloor.Location = new Point(40, 40);            
+               this.lblFloor.AutoSize = true;
 
                this.comboBoxFloor = new ComboBox();
-               this.comboBoxFloor.Location = new Point(80, 70);
-               this.comboBoxFloor.Size = new Size(150, 20);
+               this.comboBoxFloor.Location = new Point(100, 40);
+               this.comboBoxFloor.AutoSize = true;
                this.comboBoxFloor.Items.Add("Selecione um Andar");
+               this.comboBoxFloor.BackColor = ColorTranslator.FromHtml("#f7f7f7");
                this.comboBoxFloor.ValueMember = "Key";
                this.comboBoxFloor.DisplayMember = "Value";
                this.comboBoxFloor.DataSource = GetFloorsToComboBox();
@@ -121,55 +122,74 @@ namespace Views
                     comboBoxFloor.SelectedIndex = 0;
                }
 
-
                this.lblNumber = new Label();
-               this.lblNumber.Text = "Numero";
-               this.lblNumber.Location = new Point(10, 40);
-               this.lblNumber.Size = new Size(50, 20);
+               this.lblNumber.Text = "Número";
+               this.lblNumber.Location = new Point(40, 70);
+               this.lblNumber.AutoSize = true;
 
                this.comboBoxNumber = new ComboBox();
-               this.comboBoxNumber.Location = new Point(80, 40);
-               this.comboBoxNumber.Size = new Size(150, 20);
+               this.comboBoxNumber.Location = new Point(100, 70);
+               this.comboBoxNumber.AutoSize = true;
                this.comboBoxNumber.Items.Add("Selecione um numero");
                this.comboBoxNumber.Items.AddRange(GetNumbersRooms().ToArray());
 
                this.lblDescription = new Label();
                this.lblDescription.Text = "Descrição";
-               this.lblDescription.Location = new Point(10, 100);
-               this.lblDescription.Size = new Size(50, 20);
+               this.lblDescription.Location = new Point(40, 100);
+               this.lblDescription.AutoSize = true;
 
                this.comboBoxDescription = new ComboBox();
-               this.comboBoxDescription.Location = new Point(80, 100);
-               this.comboBoxDescription.Size = new Size(150, 20);
+               this.comboBoxDescription.Location = new Point(100, 100);
+               this.comboBoxDescription.AutoSize = true;
                this.comboBoxDescription.Items.Add("Solteiro");
                this.comboBoxDescription.Items.Add("Casal");
                this.comboBoxDescription.Items.Add("Dormitório");
 
+
                this.lblValue = new Label();
                this.lblValue.Text = "Valor";
-               this.lblValue.Location = new Point(10, 130);
-               this.lblValue.Size = new Size(50, 20);
+               this.lblValue.Location = new Point(40, 130);
+               this.lblValue.AutoSize = true;
 
                this.txtValue = new TextBox();
-               this.txtValue.Location = new Point(80, 130);
-               this.txtValue.Size = new Size(150, 20);
+               this.txtValue.Location = new Point(100, 130);
+               this.txtValue.AutoSize = true;
 
                this.lblColor = new Label();
                this.lblColor.Text = "Cor";
-               this.lblColor.Location = new Point(10, 160);
-               this.lblColor.Size = new Size(50, 20);
+               this.lblColor.Location = new Point(40, 160);
+               this.lblColor.AutoSize = true;
 
                this.txtColor = new TextBox();
-               this.txtColor.Location = new Point(80, 160);
-               this.txtColor.Size = new Size(150, 20);
+               this.txtColor.Location = new Point(100, 160);
+               this.txtColor.AutoSize = true;
+
+               this.tableLayoutPanel = new TableLayoutPanel();
+               this.tableLayoutPanel.Dock = DockStyle.Bottom;
+               this.tableLayoutPanel.AutoSize = true;
+               this.tableLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+               this.tableLayoutPanel.Padding = new Padding(10, 10, 10, 10);
+               this.tableLayoutPanel.BackColor = ColorTranslator.FromHtml("#3C4858");
+               this.tableLayoutPanel.ColumnCount = 4;
+               this.tableLayoutPanel.RowCount = 1;
+               this.tableLayoutPanel.ColumnStyles.Clear();
+
+               for (int i = 0; i < tableLayoutPanel.ColumnCount; i++)
+               {
+                    this.tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+               }
 
                this.btCrt = new Button();
                this.btCrt.Text = "Adicionar";
-               this.btCrt.Location = new Point(80, 200);
-               this.btCrt.Size = new Size(150, 25);
+               this.btCrt.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+               this.btCrt.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+               this.btCrt.Font = new Font("Roboto", 8, FontStyle.Regular);
+               this.btCrt.FlatStyle = FlatStyle.Flat;
+               this.btCrt.Location = new Point(100, 280);
+               this.btCrt.AutoSize = true;
                this.btCrt.Click += new EventHandler(this.btCrt_Click);
 
-
+               this.Controls.Add(this.tableLayoutPanel);
                this.Controls.Add(this.lblNumber);
                this.Controls.Add(this.lblFloor);
                this.Controls.Add(this.lblDescription);

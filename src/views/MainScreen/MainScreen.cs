@@ -143,7 +143,7 @@ namespace Views
             subMenuItemRegisterRooms.Text = "Quartos";
             subMenuItemRegisterRooms.Click += (sender, e) =>
             {
-                var registerRoom = new RegisterRoom();
+                var registerRoom = new RoomCreate();
                 registerRoom.ShowDialog();
                 this.ShowDialog();
             }; ;
