@@ -69,10 +69,12 @@ namespace Controllers
             }
         }
 
-        public static void login(string name, string password) {
+        public static Models.Guest Login(string name, string password)
+        {
             try
             {
-                Models.Guest.Login(name, password);
+                Models.Guest guest = Models.Guest.Login(name, password);
+                return guest;
             }
             catch (System.Exception e)
             {

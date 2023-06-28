@@ -114,17 +114,18 @@ namespace Models
             }
         }
 
-        public static void Login(string name, string password)
+        public static Models.Guest Login(string name, string password)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Guest guest = context.Guests.Where(guest => guest.Name == name && guest.Password == password).FirstOrDefault();
+                    Guest guest = context.Guests.Where(gue => gue.Name == name && gue.Password == password).FirstOrDefault();
                     if (guest == null)
                     {
                         throw new Exception("Usuário ou senha incorretos");
                     }
+                    return guest;
                 }
             }
             catch (System.Exception e)

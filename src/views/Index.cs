@@ -19,20 +19,36 @@ namespace Views
 
 
 
-        public static bool IsRegisteredEmployee()
+        public static Models.Employee GetUserLogin()
+        {
+
+            string login = nameTextBox.Text;
+            string password = passwordTextBox.Text;
+
+            Models.Employee employee = Controllers.Employee.Login(
+                login,
+                password   
+            );
+
+            return employee;
+        }    
+
+
+        public static bool GetGuestLogin()
         {
             try
             {
                 string login = nameTextBox.Text;
                 string password = passwordTextBox.Text;
 
-                Controllers.Employee.login(
+                Models.Guest guest = Controllers.Guest.Login(
                     login,
                     password
                 );
 
+                return true;
             }
-            catch( System.Exception e )
+            catch (System.Exception e)
             {
                 MessageBox.Show(
                     e.Message,
@@ -40,24 +56,26 @@ namespace Views
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+
                 return false;
-            }           
-            return true;
+            }
         }
-        public static bool IsRegisteredGuest()
+
+        public static bool GetEmployeeLogin()
         {
             try
             {
                 string login = nameTextBox.Text;
                 string password = passwordTextBox.Text;
 
-                Controllers.Guest.login(
+                Models.Employee employee = Controllers.Employee.Login(
                     login,
                     password
                 );
 
+                return true;
             }
-            catch( System.Exception e )
+            catch(System.Exception e)
             {
                 MessageBox.Show(
                     e.Message,
@@ -65,13 +83,30 @@ namespace Views
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
-                return false;
-            }           
-            return true;
 
+                return false;
+            }
         }
+
+        public static bool IsUserExisting()
+        {
+            if (GetGuestLogin() == true)
+            {
+                return true;
+            }
+            else if (GetEmployeeLogin() == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static void Index()
         {
+
             Form initialScreen = new Form();
 
             initialScreen.Icon = new Icon("Assets/logoUm.ico", 30, 30);
@@ -159,7 +194,16 @@ namespace Views
             btnToMainScreen.Dock = DockStyle.Fill;
             btnToMainScreen.Click += (sender, e) =>
             {
-                if (!IsRegisteredGuest() || IsRegisteredEmployee())
+                if (IsUserExisting())
+                {
+                    initialScreen.Hide();
+                    MainScreen mainScreen = new MainScreen();
+                    Models.Employee employee = GetUserLogin();
+                    mainScreen.isAdminUser(employee);
+                    mainScreen.ShowDialog();
+                    initialScreen.Close();
+                }
+                else
                 {
                     MessageBox.Show(
                         "Você não está cadastrado",
@@ -167,13 +211,6 @@ namespace Views
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
-                }
-                else
-                {
-                    initialScreen.Hide();
-                    var mainScreen = new MainScreen();
-                    mainScreen.ShowDialog();
-                    initialScreen.Close();
                 }
                
             };
@@ -187,6 +224,7 @@ namespace Views
             btnExit.FlatStyle = FlatStyle.Flat;
             btnExit.Click += (sender, e) =>
             {
+                // ConfirmReserve();
                 initialScreen.Close();
             };
 
@@ -196,5 +234,40 @@ namespace Views
 
             initialScreen.ShowDialog();
         }
+
+
+        //  public static void ConfirmReserve()
+        // {
+
+
+        //     string login = nameTextBox.Text;
+        //     string password = passwordTextBox.Text;
+        //      Models.Employee employee = Controllers.Employee.Login(
+        //             login,
+        //             password   
+        //         );
+        //     Form formConfirmReserve = new Form();
+        //     formConfirmReserve.Text = "Reserva - " + employee.MothersName;
+        //     formConfirmReserve.Size = new Size(350, 400);
+        //     formConfirmReserve.StartPosition = FormStartPosition.CenterScreen;
+        //     formConfirmReserve.FormBorderStyle = FormBorderStyle.FixedSingle;
+        //     formConfirmReserve.MaximizeBox = false;
+        //     formConfirmReserve.MinimizeBox = false;
+        //     formConfirmReserve.ControlBox = true;
+        //     formConfirmReserve.BackColor = ColorTranslator.FromHtml("#f5f5f5");
+
+
+        //     Label titleMessageBox = new Label();
+        //     titleMessageBox.Text = "Reserva - " + employee.Document.ToString();
+        //     titleMessageBox.AutoSize = true;
+        //     titleMessageBox.Location = new Point(30, 30);
+        //     titleMessageBox.Font = new Font("Arial", 16, FontStyle.Bold);
+        //     titleMessageBox.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+        //     formConfirmReserve.Controls.Add(titleMessageBox);
+
+            
+            
+        //     formConfirmReserve.ShowDialog();
+        // }
     }
 }

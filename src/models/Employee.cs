@@ -116,17 +116,18 @@ namespace Models
                 throw e;
             }
         }
-        public static void Login(string name, string password)
+        public static Models.Employee Login(string name, string password)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Employee employee = context.Employees.Where(employee => employee.Name == name && employee.Password == password).FirstOrDefault();
+                    Employee employee = context.Employees.Where(emp => emp.Name == name && emp.Password == password).FirstOrDefault();
                     if (employee == null)
                     {
                         throw new Exception("Usuário ou senha incorretos");
                     }
+                    return employee;
                 }
             }
             catch (System.Exception e)

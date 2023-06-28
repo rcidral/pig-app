@@ -1,5 +1,7 @@
 using Controllers;
 using Models;
+using System.Windows.Forms;
+
 
 namespace Views
 {
@@ -11,10 +13,33 @@ namespace Views
         public int occupiedCount { get; set; }
         public int reservedCount { get; set; }
         public int cleaningCount { get; set; }
+        public bool isCleaning = false;
+        public bool isAdmin { get; set; }
         public Button button { get; set; }
+        public MenuStrip menuStrip;
+        public ToolStripMenuItem menuItemRegister;
+        public ToolStripMenuItem menuItemViews;
+        public ToolStripMenuItem menuItemStatements;
 
 
+      
 
+        public void isAdminUser(Models.Employee employee)
+        {
+            if (employee != null)
+            {
+                isAdmin = employee.Type;
+
+                if (isAdmin)
+                {
+                    menuStrip.Items.Add(menuItemRegister);
+                    menuStrip.Items.Add(menuItemViews);
+                    menuStrip.Items.Add(menuItemStatements);
+                }
+            }
+
+
+        }
 
 
         private List<int> getNumbersRooms()
@@ -33,46 +58,9 @@ namespace Views
             }
 
             return quantityRooms;
-            }
-
-        private void Button_Click(object sender, EventArgs e)
-        {
-            var button = (Button)sender;
-            var roomId = Convert.ToInt32(button.Text);
-            Models.Reservation reservation = Controllers.Reservation.findByNumberRoom(roomId);
-
-            var checkInForm = new CheckIn(roomId);
-            checkInForm.ShowDialog();
-
-            UpdateButtonColor((Button)sender, reservation);
         }
 
 
-        private void UpdateButtonColor(Button button, Models.Reservation reservation)
-        {
-            var today = DateTime.Today;
-
-            if (reservation != null)
-            {
-                if (reservation.CheckIn.Date == today.Date)
-                {
-                    button.BackColor = ColorTranslator.FromHtml("#B73E3E");
-                }
-                else
-                {
-                    button.BackColor = ColorTranslator.FromHtml("#F7DB6A"); 
-                }
-            }
-            else
-            {
-                button.BackColor = ColorTranslator.FromHtml("#539165"); 
-            }
-
-            button.ForeColor = Color.White;
-        }
-
-
-   
         private void createSquares()
         {
             int sizeSquare = 130;
@@ -91,7 +79,6 @@ namespace Views
                 Controls.Add(button);
             }
         }
-
 
 
         private Panel createSquare(Color color, string name, int count)
@@ -134,23 +121,22 @@ namespace Views
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.ControlBox = true;
             this.BackColor = ColorTranslator.FromHtml("#E0E6ED");
-
-
-
-            MenuStrip menuStrip = new MenuStrip();
+    
+            this.menuStrip = new MenuStrip();
             menuStrip.Dock = DockStyle.Top;
 
             //Cadastro
-            ToolStripMenuItem menuItemRegister = new ToolStripMenuItem();
+            this.menuItemRegister = new ToolStripMenuItem();
             menuItemRegister.Text = "Cadastros";
 
             //Vizualização      
-            ToolStripMenuItem menuItemViews = new ToolStripMenuItem();
+            this.menuItemViews = new ToolStripMenuItem();
             menuItemViews.Text = "Vizualizações";
 
             //Balanço
-            ToolStripMenuItem menuItemStatements = new ToolStripMenuItem();
+            this.menuItemStatements = new ToolStripMenuItem();
             menuItemStatements.Text = "Balanços";
+
 
             //Cadastro
             ToolStripMenuItem subMenuItemRegisterRooms = new ToolStripMenuItem();
@@ -193,7 +179,6 @@ namespace Views
                 this.Show();
             };
 
-            //Vizualização      
             ToolStripMenuItem subMenuItemViewsRooms = new ToolStripMenuItem();
             subMenuItemViewsRooms.Text = "Quartos";
             subMenuItemViewsRooms.Click += (sender, e) =>
@@ -256,6 +241,7 @@ namespace Views
                 // this.Show();
             };
 
+
             menuItemRegister.DropDownItems.Add(subMenuItemRegisterRooms);
             menuItemRegister.DropDownItems.Add(subMenuItemRegisterGuests);
             menuItemRegister.DropDownItems.Add(subMenuItRegisterEmemployees);
@@ -267,9 +253,7 @@ namespace Views
             menuItemStatements.DropDownItems.Add(subMenuItemStatementsProducts);
             menuItemStatements.DropDownItems.Add(subMenuItemStatementsAccommodation);
 
-            menuStrip.Items.Add(menuItemRegister);
-            menuStrip.Items.Add(menuItemViews);
-            menuStrip.Items.Add(menuItemStatements);
+
 
             Controls.Add(menuStrip);
 
@@ -315,26 +299,32 @@ namespace Views
                 button.ForeColor = ColorTranslator.FromHtml("#ffffff");
 
                 Models.Reservation reservation = Controllers.Reservation.findByNumberRoom(roomId);
-                
 
                 DateTime today = DateTime.Now;
-                
-                if (reservation != null && reservation.CheckIn.Date == today.Date)
+                if (reservation != null)
                 {
-                    button.BackColor = ColorTranslator.FromHtml("#B73E3E");
+                    if (reservation.CheckIn.Date == today.Date)
+                    {
+                        button.BackColor = ColorTranslator.FromHtml("#B73E3E");
+                    }
+                    else if(reservation.CheckIn.Date != today.Date)
+                    {
+                        button.BackColor = ColorTranslator.FromHtml("#F7DB6A");
+                    }
+                    else if(reservation.CheckIn == null)
+                    {
+                        button.BackColor = ColorTranslator.FromHtml("#539165");
+                    }
+                    else if(today.Date == reservation.CheckOut.Date || isCleaning == true )
+                    {
+                        button.BackColor = ColorTranslator.FromHtml("#7FBCD2");
+                    }
+                    else
+                    {
+                        button.BackColor = ColorTranslator.FromHtml("#539165");
+                    }
                 }
-                else if(reservation != null && reservation.CheckIn.Date != today.Date)
-                {
-                    button.BackColor = ColorTranslator.FromHtml("#F7DB6A");
-                }
-                else if(reservation != null && reservation.CheckIn == null)
-                {
-                    button.BackColor = ColorTranslator.FromHtml("#539165");
-                }
-                else
-                {
-                    button.BackColor = ColorTranslator.FromHtml("#539165");
-                }
+               
 
                 button.Margin = new Padding(spacingSquare / 2);
                 button.Click += (sender, e) =>
@@ -476,15 +466,18 @@ namespace Views
             buttonNo.Click += (sender, e) =>
             {
                 formConfirmReserve.Close();
+                isCleaning = true;
+
             };
 
             formConfirmReserve.Controls.Add(listBox);
-            formConfirmReserve.Controls.Add(buttonYes);
-            formConfirmReserve.Controls.Add(buttonNo);
-            formConfirmReserve.Size = new Size(350, 350);
-            formConfirmReserve.FormBorderStyle = FormBorderStyle.None;
-            formConfirmReserve.StartPosition = FormStartPosition.CenterScreen;
-            formConfirmReserve.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            
+            if(isAdmin)
+            {
+                formConfirmReserve.Controls.Add(buttonYes);
+                formConfirmReserve.Controls.Add(buttonNo);
+            }
+
             
             formConfirmReserve.ShowDialog();
 

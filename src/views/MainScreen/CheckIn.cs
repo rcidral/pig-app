@@ -24,7 +24,7 @@ namespace Views
         public Button confirmBtnMessageBox;
         public Button cancelBtnMessageBox;
 
-        MainScreen mainScreen = new MainScreen();
+        // MainScreen mainScreen = new MainScreen();
         public bool statusReservation { get; set; } = false;
 
         
@@ -84,8 +84,8 @@ namespace Views
 
                 Controllers.Reservation.store(reservation);  
 
-                var mainScreen = new MainScreen();
-                mainScreen.Show();         
+                // var mainScreen = new MainScreen(true);
+                // mainScreen.Show();         
 
                 this.Close();
 
@@ -100,7 +100,7 @@ namespace Views
 
         public void ConfirmCheckIn(int idRoom)
         {
-            MainScreen mainScreen = new MainScreen();
+            // MainScreen mainScreen = new MainScreen(true);
 
             List<Models.Room> rooms = Controllers.Room.show(idRoom);
             Models.Room room = rooms[0];
@@ -287,8 +287,8 @@ namespace Views
             btnReserve.Click += (sender, e) =>
             {
                 ConfirmCheckIn(roomId);
-                var toMainScreen1 = new MainScreen();
-                toMainScreen1.Close();
+                // var toMainScreen1 = new MainScreen(true);
+                // toMainScreen1.Close();
             };
             buttonsLayoutPanel.Controls.Add(btnReserve, 2, 0);
 

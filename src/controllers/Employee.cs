@@ -69,11 +69,12 @@ namespace Controllers
                 throw e;
             }
         }
-        public static void login(string name, string password) 
+        public static Models.Employee Login(string name, string password) 
         {
             try
             {
-                Models.Employee.Login(name, password);
+                Models.Employee employee = Models.Employee.Login(name, password);
+                return employee;
             }
             catch (System.Exception e)
             {
