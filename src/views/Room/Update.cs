@@ -17,12 +17,12 @@ namespace Views
        public TextBox txtValue;
        public TextBox txtColor;
        public TableLayoutPanel tableLayoutPanel;
-       public Button btUpdate;
+       public Button btUpd;
        public Button btClose;
 
        public Models.Room room;
 
-       public void btUpdate_Click(object sender, EventArgs e)
+       public void btUpd_Click(object sender, EventArgs e)
        {
             try
             {
@@ -189,21 +189,21 @@ namespace Views
                 this.tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             }
 
-            this.btUpdate = new Button();
-            this.btUpdate.Text = "Adicionar";
-            // this.btUpdate.Location = new Point(80, cboType.Bottom + 10);
-            this.btUpdate.Size = new Size(110, 35);
-            this.btUpdate.Font = new Font("Roboto", 8, FontStyle.Regular);
-            this.btUpdate.FlatStyle = FlatStyle.Flat;
-            this.btUpdate.FlatAppearance.BorderSize = 0;
-            this.btUpdate.BackColor = ColorTranslator.FromHtml("#E0E6ED");
-            this.btUpdate.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
-            this.btUpdate.Dock = DockStyle.Fill;
-            this.btUpdate.Click += new EventHandler(this.btUpdate_Click);
+            this.btUpd = new Button();
+            this.btUpd.Text = "Adicionar";
+            // this.btUpd.Location = new Point(80, cboType.Bottom + 10);
+            this.btUpd.Size = new Size(110, 35);
+            this.btUpd.Font = new Font("Roboto", 8, FontStyle.Regular);
+            this.btUpd.FlatStyle = FlatStyle.Flat;
+            this.btUpd.FlatAppearance.BorderSize = 0;
+            this.btUpd.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            this.btUpd.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            this.btUpd.Dock = DockStyle.Fill;
+            this.btUpd.Click += new EventHandler(this.btUpd_Click);
 
             this.btClose = new Button();
             this.btClose.Text = "Sair";
-            // this.btClose.Location = new Point(80, btUpdate.Bottom + 10);
+            // this.btClose.Location = new Point(80, btUpd.Bottom + 10);
             this.btClose.Size = new Size(110, 35);
             this.btClose.BackColor = ColorTranslator.FromHtml("#E0E6ED");
             this.btClose.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
@@ -216,7 +216,7 @@ namespace Views
                 this.Close();
             };
 
-            this.tableLayoutPanel.Controls.Add(btUpdate, 2, 0); 
+            this.tableLayoutPanel.Controls.Add(btUpd, 2, 0); 
             this.tableLayoutPanel.Controls.Add(btClose, 3, 0);
 
             this.Controls.Add(this.tableLayoutPanel);
@@ -231,7 +231,6 @@ namespace Views
             this.Controls.Add(this.comboBoxDescription);
             this.Controls.Add(this.txtValue);
             this.Controls.Add(this.txtColor);
-            this.Controls.Add(this.btUpdate);
        }
     }
 }

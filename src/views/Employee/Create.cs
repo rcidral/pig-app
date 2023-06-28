@@ -223,12 +223,6 @@ namespace Views
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.cboType);
-
- 
-
-
-
-
         }
     }
 }

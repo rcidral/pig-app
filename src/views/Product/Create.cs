@@ -18,10 +18,12 @@ namespace Views
         {
             try
             {
-                Models.Product product = new Models.Product
-                (
-                    txtName.Text,
-                    Convert.ToDouble(txtValue.Text)
+                string name = txtName.Text;
+                double value = Convert.ToDouble(txtValue.Text);
+
+                Models.Product product = new Models.Product(
+                    name,
+                    value
                 );
 
                 Controllers.Product.Store(product);
@@ -139,8 +141,6 @@ namespace Views
             this.Controls.Add(txtName);
             this.Controls.Add(lblValue);
             this.Controls.Add(txtValue);
-            
-
         }
     }
 }

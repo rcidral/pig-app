@@ -105,7 +105,7 @@ namespace Views
                this.BackColor = color;
                this.ShowIcon = false;
                this.ShowInTaskbar = false;
-               this.Size = new System.Drawing.Size(300, 580);
+               this.Size = new System.Drawing.Size(300, 480);
 
                this.lblTitle = new Label();
                this.lblTitle.Text = "Cadastro de quarto";
@@ -230,7 +230,6 @@ namespace Views
                this.Controls.Add(this.comboBoxDescription);
                this.Controls.Add(this.txtValue);
                this.Controls.Add(this.txtColor);
-               this.Controls.Add(this.btCrt);
           }
     }
 }

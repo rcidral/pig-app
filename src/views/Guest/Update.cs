@@ -5,37 +5,63 @@ namespace Views
 {
     public class UpdateGuest : Form
     {
-        public Label lbName;
-        public Label lbBirth;
-        public Label lbPayment;
-        public Label lbDocument;
-        public Label lbMothersName;
-        public TextBox TxtName;
-        public DateTimePicker DtBirth;
-        public TextBox TxtPayment;
-        public TextBox TxtDocument;
-        public TextBox TxtMothersName;
-        public Button btCreate;
-
+        public Label lblTitle;
+        public Label lblName;
+        public TextBox txtName;
+        public Label lblBirth;
+        public DateTimePicker dtBirth;
+        public Label lblPayment;
+        public TextBox txtPayment;
+        public Label lblDocument;
+        public TextBox txtDocument;
+        public Label lblMotherName;
+        public TextBox txtMotherName;
+        public Label lblPassword;
+        public TextBox txtPassword;
+        public Button btUpd;
+        public Button btClose;
+        public TableLayoutPanel buttonsLayoutPanel;
         public Models.Guest guest;
 
         private void btUpd_Click(object sender, EventArgs e)
         {
-            Models.Guest guestToUpdate = this.guest;
-            guestToUpdate.Name = TxtName.Text;
-            guestToUpdate.Birth = DtBirth.Value;
-            guestToUpdate.Payment = Convert.ToInt32(Convert.ToDouble(TxtPayment.Text));
-            guestToUpdate.Document = Convert.ToInt32(TxtDocument.Text);
-            guestToUpdate.MothersName = TxtMothersName.Text;
-
-            Controllers.Guest.update(guestToUpdate.Id, guestToUpdate);
-
-            List Guest = Application.OpenForms.OfType<List>().FirstOrDefault();
-            if (Guest != null)
+            try
             {
-                Guest.RefreshList();
+                string name = txtName.Text;
+                DateTime birth = dtBirth.Value;
+                int payment = Convert.ToInt32(Convert.ToDouble(txtPayment.Text));
+                int document = Convert.ToInt32(txtDocument.Text);
+                string mothersName = txtMotherName.Text;
+                string password = txtPassword.Text;
+
+
+                Models.Guest guest = new Models.Guest(
+                    name,
+                    birth,
+                    payment,
+                    document,
+                    mothersName,
+                    password
+                );
+
+                Controllers.Guest.store(guest);
+                MessageBox.Show("Guest created successfully!");
+                ClearForm();
             }
-            this.Close();
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        private void ClearForm()
+        {
+            txtName.Clear();
+            dtBirth.Value = DateTime.MinValue; 
+            txtPayment.Clear();
+            txtDocument.Clear();
+            txtMotherName.Clear();
+            txtPassword.Clear();
         }
 
         public UpdateGuest(Models.Guest guest)
@@ -53,68 +79,132 @@ namespace Views
             this.Size = new System.Drawing.Size(280, 360);
             this.Font = new System.Drawing.Font("Arial", 25, System.Drawing.FontStyle.Bold);
 
-            lbName = new Label();
-            lbName.Text = "Name:";
-            lbName.Location = new System.Drawing.Point(20, 20);
-            lbName.Size = new System.Drawing.Size(60, 20);
-            this.Controls.Add(lbName);
+            this.lblTitle = new Label();
+            this.lblTitle.Text = "Cadastro de hospede";
+            this.lblTitle.Font = new Font("Segoe UI", 13f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new Point(40, 30);
+            this.lblTitle.Size = new Size(250, 40);
 
-            lbBirth = new Label();
-            lbBirth.Text = "Birthdate:";
-            lbBirth.Location = new System.Drawing.Point(20, 60);
-            lbBirth.Size = new System.Drawing.Size(60, 20);
-            this.Controls.Add(lbBirth);
+            this.lblName = new Label();
+            this.lblName.Text = "Nome";
+            this.lblName.Location = new Point(33, lblTitle.Bottom + 10);
+            this.lblName.Size = new Size(70, 20);
 
-            lbPayment = new Label();
-            lbPayment.Text = "Payment:";
-            lbPayment.Location = new System.Drawing.Point(20, 100);
-            lbPayment.Size = new System.Drawing.Size(60, 20);
-            this.Controls.Add(lbPayment);
+            this.txtName = new TextBox();
+            this.txtName.Location = new Point(33, lblName.Bottom + 5);
+            this.txtName.BorderStyle = BorderStyle.FixedSingle;
+            this.txtName.Size = new Size(220, 20);
 
-            lbDocument = new Label();
-            lbDocument.Text = "Document:";
-            lbDocument.Location = new System.Drawing.Point(20, 140);
-            lbDocument.Size = new System.Drawing.Size(60, 20);
-            this.Controls.Add(lbDocument);
+            this.lblBirth = new Label();
+            this.lblBirth.Text = "Aniversário";
+            this.lblBirth.Location = new Point(33, txtName.Bottom + 10);
+            this.lblBirth.Size = new Size(70, 20);
 
-            lbMothersName = new Label();
-            lbMothersName.Text = "Mother's Name:";
-            lbMothersName.Location = new System.Drawing.Point(20, 180);
-            lbMothersName.Size = new System.Drawing.Size(90, 20);
-            this.Controls.Add(lbMothersName);
+            this.dtBirth = new DateTimePicker();
+            this.dtBirth.Location = new Point(33, lblBirth.Bottom + 5);
+            this.dtBirth.Size = new Size(220, 20);
+            dtBirth.Format = DateTimePickerFormat.Short;
 
-            TxtName = new TextBox();
-            TxtName.Location = new System.Drawing.Point(120, 20);
-            TxtName.Size = new System.Drawing.Size(120, 20);
-            this.Controls.Add(TxtName);
+            this.lblPayment = new Label();
+            this.lblPayment.Text = "Pagamento";
+            this.lblPayment.Location = new Point(33, dtBirth.Bottom + 10);
+            this.lblPayment.Size = new Size(70, 20);
 
-            DtBirth = new DateTimePicker();
-            DtBirth.Location = new System.Drawing.Point(120, 60);
-            DtBirth.Size = new System.Drawing.Size(120, 20);
-            this.Controls.Add(DtBirth);
+            this.txtPayment = new TextBox();
+            this.txtPayment.Location = new Point(33, lblPayment.Bottom + 5);
+            this.txtPayment.BorderStyle = BorderStyle.FixedSingle;
+            this.txtPayment.Size = new Size(220, 20);
 
-            TxtPayment = new TextBox();
-            TxtPayment.Location = new System.Drawing.Point(120, 100);
-            TxtPayment.Size = new System.Drawing.Size(120, 20);
-            this.Controls.Add(TxtPayment);
+            this.lblDocument = new Label();
+            this.lblDocument.Text = "Documento";
+            this.lblDocument.Location = new Point(33, txtPayment.Bottom + 10);
+            this.lblDocument.Size = new Size(70, 20);
 
-            TxtDocument = new TextBox();
-            TxtDocument.Location = new System.Drawing.Point(120, 140);
-            TxtDocument.Size = new System.Drawing.Size(120, 20);
-            this.Controls.Add(TxtDocument);
+            this.txtDocument = new TextBox();
+            this.txtDocument.Location = new Point(33, lblDocument.Bottom + 5);
+            this.txtDocument.BorderStyle = BorderStyle.FixedSingle;
+            this.txtDocument.Size = new Size(220, 20);
 
-            TxtMothersName = new TextBox();
-            TxtMothersName.Location = new System.Drawing.Point(120, 180);
-            TxtMothersName.Size = new System.Drawing.Size(120, 20);
-            this.Controls.Add(TxtMothersName);
+            this.lblMotherName = new Label();
+            this.lblMotherName.Text = "Nome da Mãe";
+            this.lblMotherName.Location = new Point(33, txtDocument.Bottom + 10);
+            this.lblMotherName.Size = new Size(70, 20);
 
-            btCreate = new Button();
-            btCreate.Text = "Create";
-            btCreate.Location = new System.Drawing.Point(20, 220);
-            btCreate.Size = new System.Drawing.Size(80, 30);
-            btCreate.Click += new EventHandler(btUpd_Click);
-            this.Controls.Add(btCreate);
+            this.txtMotherName = new TextBox();
+            this.txtMotherName.Location = new Point(33, lblMotherName.Bottom + 5);
+            this.txtMotherName.BorderStyle = BorderStyle.FixedSingle;
+            this.txtMotherName.Size = new Size(220, 20);
+
+            this.lblPassword = new Label();
+            this.lblPassword.Text = "Senha";
+            this.lblPassword.Location = new Point(33, txtMotherName.Bottom + 10);
+            this.lblPassword.Size = new Size(70, 20);
+
+            this.txtPassword = new TextBox();
+            this.txtPassword.Location = new Point(33, lblPassword.Bottom + 5);
+            this.txtPassword.BorderStyle = BorderStyle.FixedSingle;
+            this.txtPassword.Size = new Size(220, 20);
+
+            this.buttonsLayoutPanel = new TableLayoutPanel();
+            this.buttonsLayoutPanel.Dock = DockStyle.Bottom;
+            this.buttonsLayoutPanel.AutoSize = true;
+            this.buttonsLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.buttonsLayoutPanel.Padding = new Padding(10, 10, 10, 10);
+            this.buttonsLayoutPanel.BackColor = ColorTranslator.FromHtml("#3C4858");
+            this.buttonsLayoutPanel.ColumnCount = 4;
+            this.buttonsLayoutPanel.RowCount = 1;
+            this.buttonsLayoutPanel.ColumnStyles.Clear();
+
+            for (int i = 0; i < buttonsLayoutPanel.ColumnCount; i++)
+            {
+                buttonsLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            }
+
+            this.btUpd = new Button();
+            this.btUpd.Text = "Adicionar";
+            // this.btUpd.Location = new Point(80, cboType.Bottom + 10);
+            this.btUpd.Size = new Size(110, 35);
+            this.btUpd.Font = new Font("Roboto", 8, FontStyle.Regular);
+            this.btUpd.FlatStyle = FlatStyle.Flat;
+            this.btUpd.FlatAppearance.BorderSize = 0;
+            this.btUpd.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            this.btUpd.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            this.btUpd.Dock = DockStyle.Fill;
+            this.btUpd.Click += new EventHandler(this.btUpd_Click);
+
+            this.btClose = new Button();
+            this.btClose.Text = "Sair";
+            // this.btClose.Location = new Point(80, btUpd.Bottom + 10);
+            this.btClose.Size = new Size(110, 35);
+            this.btClose.BackColor = ColorTranslator.FromHtml("#E0E6ED");
+            this.btClose.ForeColor = ColorTranslator.FromHtml("#1c1c1e");
+            this.btClose.Font = new Font("Roboto", 8, FontStyle.Regular);
+            this.btClose.FlatStyle = FlatStyle.Flat;
+            this.btClose.FlatAppearance.BorderSize = 0;
+            this.btClose.Dock = DockStyle.Fill;
+            this.btClose.Click += (sender, s) =>
+            {
+                this.Close();
+            };
+
+            this.buttonsLayoutPanel.Controls.Add(btUpd, 2, 0); // Mudar o segundo parâmetro para 0
+            this.buttonsLayoutPanel.Controls.Add(btClose, 3, 0); // Mudar o segundo parâmetro para 0
+
+            this.Controls.Add(buttonsLayoutPanel);
+
+            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.lblName);
+            this.Controls.Add(this.txtName);
+            this.Controls.Add(this.lblBirth);
+            this.Controls.Add(this.dtBirth);
+            this.Controls.Add(this.lblPayment);
+            this.Controls.Add(this.txtPayment);
+            this.Controls.Add(this.lblDocument);
+            this.Controls.Add(this.txtDocument);
+            this.Controls.Add(this.lblMotherName);
+            this.Controls.Add(this.txtMotherName);
+            this.Controls.Add(this.lblPassword);
+            this.Controls.Add(this.txtPassword);
         }
-
     }
 }
