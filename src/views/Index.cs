@@ -90,11 +90,7 @@ namespace Views
 
         public static bool IsUserExisting()
         {
-            if (GetGuestLogin() == true)
-            {
-                return true;
-            }
-            else if (GetEmployeeLogin() == true)
+            if ((GetGuestLogin() == true) || (GetEmployeeLogin() == true))
             {
                 return true;
             }
@@ -199,7 +195,7 @@ namespace Views
                     initialScreen.Hide();
                     MainScreen mainScreen = new MainScreen();
                     Models.Employee employee = GetUserLogin();
-                    mainScreen.isAdminUser(employee);
+                    mainScreen.GetOptionsAdmin(employee);
                     mainScreen.ShowDialog();
                     initialScreen.Close();
                 }

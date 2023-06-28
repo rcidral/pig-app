@@ -13,7 +13,7 @@ namespace Views
         public int occupiedCount { get; set; }
         public int reservedCount { get; set; }
         public int cleaningCount { get; set; }
-        public bool isCleaning = false;
+        public bool isCleaning { get; set; }
         public bool isAdmin { get; set; }
         public Button button { get; set; }
         public MenuStrip menuStrip;
@@ -24,7 +24,7 @@ namespace Views
 
       
 
-        public void isAdminUser(Models.Employee employee)
+        public void GetOptionsAdmin(Models.Employee employee)
         {
             if (employee != null)
             {
@@ -39,6 +39,18 @@ namespace Views
             }
 
 
+        }
+
+        public void isCleaningRoom(Models.Reservation reservation)
+        {
+            DateTime today = DateTime.Now;
+            if(reservation.CheckOut.Date != today.Date)
+            {
+                var clean = new CreateCLean();
+                clean.ShowDialog();
+            }
+
+            isCleaning = true;
         }
 
 
@@ -299,7 +311,7 @@ namespace Views
                 button.ForeColor = ColorTranslator.FromHtml("#ffffff");
 
                 Models.Reservation reservation = Controllers.Reservation.findByNumberRoom(roomId);
-
+               
                 DateTime today = DateTime.Now;
                 if (reservation != null)
                 {
@@ -307,23 +319,17 @@ namespace Views
                     {
                         button.BackColor = ColorTranslator.FromHtml("#B73E3E");
                     }
-                    else if(reservation.CheckIn.Date != today.Date)
+                    else
                     {
                         button.BackColor = ColorTranslator.FromHtml("#F7DB6A");
                     }
-                    else if(reservation.CheckIn == null)
-                    {
-                        button.BackColor = ColorTranslator.FromHtml("#539165");
-                    }
-                    else if(today.Date == reservation.CheckOut.Date || isCleaning == true )
-                    {
-                        button.BackColor = ColorTranslator.FromHtml("#7FBCD2");
-                    }
-                    else
-                    {
-                        button.BackColor = ColorTranslator.FromHtml("#539165");
-                    }
                 }
+                else
+                {
+                    button.BackColor = ColorTranslator.FromHtml("#539165");
+                }
+
+
                
 
                 button.Margin = new Padding(spacingSquare / 2);
@@ -450,7 +456,8 @@ namespace Views
             buttonYes.BackColor = ColorTranslator.FromHtml("#78909C");
             buttonYes.Click += (sender, e) =>
             {
-                Controllers.Reservation.destroy(reservation.Id);
+                // Controllers.Reservation.destroy(reservation.Id);
+                isCleaningRoom(reservation);
                 formConfirmReserve.Close();
             };
 
@@ -466,8 +473,6 @@ namespace Views
             buttonNo.Click += (sender, e) =>
             {
                 formConfirmReserve.Close();
-                isCleaning = true;
-
             };
 
             formConfirmReserve.Controls.Add(listBox);
