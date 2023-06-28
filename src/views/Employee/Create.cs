@@ -90,7 +90,7 @@ namespace Views
             this.lblTitle.Size = new Size(250, 40);
 
             this.lblName = new Label();
-            this.lblName.Text = "Name";
+            this.lblName.Text = "Nome";
             this.lblName.Location = new Point(33, lblTitle.Bottom + 10);
             this.lblName.Size = new Size(70, 20);
 
@@ -100,7 +100,7 @@ namespace Views
             this.txtName.Size = new Size(220, 20);
 
             this.lblBirth = new Label();
-            this.lblBirth.Text = "Birth";
+            this.lblBirth.Text = "Aniversário";
             this.lblBirth.Location = new Point(33, txtName.Bottom + 10);
             this.lblBirth.Size = new Size(70, 20);
 
@@ -120,7 +120,7 @@ namespace Views
             this.txtPayment.Size = new Size(220, 20);
 
             this.lblDocument = new Label();
-            this.lblDocument.Text = "Document";
+            this.lblDocument.Text = "Documento";
             this.lblDocument.Location = new Point(33, txtPayment.Bottom + 10);
             this.lblDocument.Size = new Size(70, 20);
 
@@ -130,7 +130,7 @@ namespace Views
             this.txtDocument.Size = new Size(220, 20);
 
             this.lblMotherName = new Label();
-            this.lblMotherName.Text = "Mother Name";
+            this.lblMotherName.Text = "Nome da mãe";
             this.lblMotherName.Location = new Point(33, txtDocument.Bottom + 10);
             this.lblMotherName.Size = new Size(70, 20);
 
@@ -140,7 +140,7 @@ namespace Views
             this.txtMotherName.Size = new Size(220, 20);
 
             this.lblPassword = new Label();
-            this.lblPassword.Text = "Password";
+            this.lblPassword.Text = "Senha";
             this.lblPassword.Location = new Point(33, txtMotherName.Bottom + 10);
             this.lblPassword.Size = new Size(70, 20);
 
@@ -150,7 +150,7 @@ namespace Views
             this.txtPassword.Size = new Size(220, 20);
 
             this.lblType = new Label();
-            this.lblType.Text = "Type";
+            this.lblType.Text = "Tipo";
             this.lblType.Location = new Point(33, txtPassword.Bottom + 10);
             this.lblType.Size = new Size(70, 20);
 

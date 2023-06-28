@@ -106,12 +106,12 @@ namespace Views
             this.BackColor = color;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Size = new System.Drawing.Size(300, 580);
+            this.Size = new System.Drawing.Size(300, 500);
 
             this.lblTitle = new Label();
             this.lblTitle.Text = "Editar quarto";
             this.lblTitle.Font = new Font("Segoe UI", 13f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new Point(40, 30);
+            this.lblTitle.Location = new Point(85, 30);
             this.lblTitle.Size = new Size(250, 40);
 
             this.lblFloor = new Label();
@@ -221,6 +221,7 @@ namespace Views
 
             this.Controls.Add(this.tableLayoutPanel);
 
+            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblNumber);
             this.Controls.Add(this.lblFloor);
             this.Controls.Add(this.lblDescription);
