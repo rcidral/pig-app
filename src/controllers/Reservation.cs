@@ -2,55 +2,48 @@ using Models;
 
 namespace Controllers
 {
-    public class Guest
-    {
-        public static void store(Models.Guest guest)
-        {
-            try
-            {
-                List<Models.Guest> existingGuests = Controllers.Guest.index();
 
-                foreach (Models.Guest existingGuest in existingGuests)
-                {
-                    if (existingGuest.Document == guest.Document)
-                    {
-                        throw new System.Exception("Guest already exists");
-                    }
-                }
-                Models.Guest.store(guest);
+    public class Reservation
+    {
+
+        public static void store(Models.Reservation reservation)
+        {
+            try
+            {
+                Models.Reservation.store(reservation);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static List<Models.Guest> index()
+        public static List<Models.Reservation> index()
         {
             try
             {
-                return Models.Guest.index();
+                return Models.Reservation.index();
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static List<Models.Guest> show(int id)
+        public static List<Models.Reservation> show(int id)
         {
             try
             {
-                return Models.Guest.show(id);
+                return Models.Reservation.show(id);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static void update(int id, Models.Guest guest)
+        public static void update(int id, Models.Reservation reservation)
         {
             try
             {
-                Models.Guest.update(id, guest);
+                Models.Reservation.update(id, reservation);
             }
             catch (System.Exception e)
             {
@@ -61,7 +54,7 @@ namespace Controllers
         {
             try
             {
-                Models.Guest.destroy(id);
+                Models.Reservation.destroy(id);
             }
             catch (System.Exception e)
             {
@@ -69,17 +62,18 @@ namespace Controllers
             }
         }
 
-        public static Models.Guest Login(string name, string password)
+        public static Models.Reservation findByNumberRoom(int numberRoom)
         {
             try
             {
-                Models.Guest guest = Models.Guest.Login(name, password);
-                return guest;
+                return Models.Reservation.findByNumberRoom(numberRoom);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
+
     }
 }
+

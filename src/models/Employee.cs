@@ -3,7 +3,7 @@ using Database;
 namespace Models
 {
 
-    public class Guest
+    public class Employee
     {
 
         public int Id { get; set; }
@@ -19,7 +19,9 @@ namespace Models
         public string MothersName { get; set; }
         public string Password { get; set; }
 
-        public Guest(string name, DateTime birth, int payment, int document, string mothersName, string password)
+        public Boolean Type { get; set; }
+
+        public Employee(string name, DateTime birth, int payment, int document, string mothersName, string password, Boolean type)
         {
             this.Name = name;
             this.Birth = birth;
@@ -27,15 +29,16 @@ namespace Models
             this.Document = document;
             this.MothersName = mothersName;
             this.Password = password;
+            this.Type = type;
         }
 
-        public static void store(Guest guest)
+        public static void store(Employee employee)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    context.Guests.Add(guest);
+                    context.Employees.Add(employee);
                     context.SaveChanges();
                 }
             }
@@ -45,13 +48,13 @@ namespace Models
             }
         }
 
-        public static List<Guest> index()
+        public static List<Employee> index()
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    return context.Guests.ToList();
+                    return context.Employees.ToList();
                 }
             }
             catch (System.Exception e)
@@ -60,13 +63,13 @@ namespace Models
             }
         }
 
-        public static List<Guest> show(int id)
+        public static List<Employee> show(int id)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    return context.Guests.Where(guest => guest.Id == id).ToList();
+                    return context.Employees.Where(employee => employee.Id == id).ToList();
                 }
             }
             catch (System.Exception e)
@@ -75,19 +78,20 @@ namespace Models
             }
         }
 
-        public static void update(int id, Guest guest)
+        public static void update(int id, Employee employee)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Guest oldGuest = context.Guests.Find(id);
-                    oldGuest.Name = guest.Name;
-                    oldGuest.Birth = guest.Birth;
-                    oldGuest.Payment = guest.Payment;
-                    oldGuest.Document = guest.Document;
-                    oldGuest.MothersName = guest.MothersName;
-                    oldGuest.Password = guest.Password;
+                    Employee oldEmployee = context.Employees.Find(id);
+                    oldEmployee.Name = employee.Name;
+                    oldEmployee.Birth = employee.Birth;
+                    oldEmployee.Payment = employee.Payment;
+                    oldEmployee.Document = employee.Document;
+                    oldEmployee.MothersName = employee.MothersName;
+                    oldEmployee.Password = employee.Password;
+                    oldEmployee.Type = employee.Type;
                     context.SaveChanges();
                 }
             }
@@ -96,15 +100,14 @@ namespace Models
                 throw e;
             }
         }
-
         public static void destroy(int id)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Guest guest = context.Guests.Find(id);
-                    context.Guests.Remove(guest);
+                    Employee employee = context.Employees.Find(id);
+                    context.Employees.Remove(employee);
                     context.SaveChanges();
                 }
             }
@@ -113,19 +116,18 @@ namespace Models
                 throw e;
             }
         }
-
-        public static Models.Guest Login(string name, string password)
+        public static Models.Employee Login(string name, string password)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Guest guest = context.Guests.Where(gue => gue.Name == name && gue.Password == password).FirstOrDefault();
-                    if (guest == null)
+                    Employee employee = context.Employees.Where(emp => emp.Name == name && emp.Password == password).FirstOrDefault();
+                    if (employee == null)
                     {
                         throw new Exception("Usuário ou senha incorretos");
                     }
-                    return guest;
+                    return employee;
                 }
             }
             catch (System.Exception e)

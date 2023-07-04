@@ -2,78 +2,79 @@ using Models;
 
 namespace Controllers
 {
-    public class Room
+
+    public class Employee
     {
-        public static void store(Models.Room room)
+        public static void store(Models.Employee employee)
         {
             try
             {
-                List<Models.Room> existingRooms = Controllers.Room.index();
+                List<Models.Employee> existingEmployees = Controllers.Employee.index();
 
-                foreach (Models.Room existingRoom in existingRooms)
+                foreach (Models.Employee existingEmployee in existingEmployees)
                 {
-                    if (existingRoom.Number == room.Number && existingRoom.Floor == room.Floor)
+                    if (existingEmployee.Name == employee.Name)
                     {
-                        throw new System.Exception("Room already exists");
+                        throw new System.Exception("Employee exists");
                     }
                 }
-                Models.Room.store(room);
+                Models.Employee.store(employee);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static List<Models.Room> index()
+        public static List<Models.Employee> index()
         {
             try
             {
-                return Models.Room.index();
+                return Models.Employee.index();
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static List<Models.Room> show(int id)
+        public static List<Models.Employee> show(int id)
         {
             try
             {
-                return Models.Room.show(id);
+                return Models.Employee.show(id);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static void update(int number, Models.Room room)
+        public static void update(int id, Models.Employee employee)
         {
             try
             {
-                Models.Room.update(number, room);
+                Models.Employee.update(id, employee);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        
-        public static void updateValue(int number,double value)
+        public static void destroy(int id)
         {
             try
             {
-                Models.Room.updateValue(number,value);
+                Models.Employee.destroy(id);
             }
             catch (System.Exception e)
             {
                 throw e;
             }
         }
-        public static void destroy(int number)
+        public static Models.Employee Login(string name, string password) 
         {
             try
             {
-                Models.Room.destroy(number);
+                Models.Employee employee = Models.Employee.Login(name, password);
+                return employee;
             }
             catch (System.Exception e)
             {
@@ -82,3 +83,4 @@ namespace Controllers
         }
     }
 }
+

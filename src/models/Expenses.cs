@@ -2,25 +2,34 @@ using Database;
 
 namespace Models
 {
-    public class Product
+
+    public class Expenses
     {
+
         public int Id { get; set; }
-        public string Name { get; set; }
+
+        public virtual Product Product { get; set; }
+        public virtual Reservation Reservation { get; set; }
+        public int ProductId { get; set; }
+        public int ReservationId { get; set; }
+        public DateTime Date { get; set; }
         public double Value { get; set; }
 
-
-        public Product(string name, double value)
+        public Expenses(int productId, int reservationId, double value)
         {
-            this.Name = name;
+            this.ProductId = productId;
+            this.ReservationId = reservationId;
+            this.Date = DateTime.Now;
             this.Value = value;
         }
-        public static void Store(Product product)
+
+        public static void store(Expenses expenses)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    context.Products.Add(product);
+                    context.Expenses.Add(expenses);
                     context.SaveChanges();
                 }
             }
@@ -29,13 +38,14 @@ namespace Models
                 throw e;
             }
         }
-        public static List<Product> index()
+
+        public static List<Expenses> index()
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    return context.Products.ToList();
+                    return context.Expenses.ToList();
                 }
             }
             catch (System.Exception e)
@@ -43,13 +53,14 @@ namespace Models
                 throw e;
             }
         }
-        public static List<Product> show(int id)
+
+        public static List<Expenses> show(int id)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    return context.Products.Where(Product => Product.Id == id).ToList();
+                    return context.Expenses.Where(expenses => expenses.Id == id).ToList();
                 }
             }
             catch (System.Exception e)
@@ -57,16 +68,18 @@ namespace Models
                 throw e;
             }
         }
-        public static void update(int id, Product products)
+
+        public static void update(int id, Expenses expenses)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Product oldProduct = context.Products.Find(id);
-                    oldProduct.Value = products.Value;
-                    oldProduct.Name = products.Name;
-                    context.SaveChanges();
+                    Expenses oldExpenses = context.Expenses.Find(id);
+                    oldExpenses.Product = expenses.Product;
+                    oldExpenses.Reservation = expenses.Reservation;
+                    oldExpenses.Date = expenses.Date;
+                    oldExpenses.Value = expenses.Value;
                 }
             }
             catch (System.Exception e)
@@ -74,14 +87,15 @@ namespace Models
                 throw e;
             }
         }
+
         public static void destroy(int id)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Product product = context.Products.Find(id);
-                    context.Products.Remove(product);
+                    Expenses expenses = context.Expenses.Find(id);
+                    context.Expenses.Remove(expenses);
                     context.SaveChanges();
                 }
             }
@@ -90,6 +104,6 @@ namespace Models
                 throw e;
             }
         }
-    }
 
+    }
 }

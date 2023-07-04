@@ -1,79 +1,32 @@
-using System.ComponentModel.DataAnnotations;
 using Database;
 
 namespace Models
 {
-    public class Room
+
+    public class Clean
     {
-        [Key]
-        public int Number { get; set; }
-        public int Floor { get; set; }
-        public string Description { get; set; }
-        public double Value { get; set; }
-        public string Color { get; set; }
+        public int Id { get; set; }
 
-        public Room(int floor, int number, string description, double value, string color)
+        public int RoomNumber { get; set; }
+
+        public int EmployeeId { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public Clean(int roomNumber, int employeeId)
         {
-            this.Floor = floor;
-            this.Number = number;
-            this.Description = description;
-            this.Value = value;
-            this.Color = color;
+            this.RoomNumber = roomNumber;
+            this.EmployeeId = employeeId;
+            this.Date = DateTime.Now;
         }
-        public static void store(Room room)
+
+        public static void store(Clean clean)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    context.Rooms.Add(room);
-                    context.SaveChanges();
-                }
-            }
-            catch (System.Exception e)
-            {
-                throw e;
-            }
-        }
-        public static List<Room> index()
-        {
-            try
-            {
-                using (Context context = new Context())
-                {
-                    return context.Rooms.ToList();
-                }
-            }
-            catch (System.Exception e)
-            {
-                throw e;
-            }
-        }
-        public static List<Room> show(int number)
-        {
-            try
-            {
-                using (Context context = new Context())
-                {
-                    return context.Rooms.Where(room => room.Number == number).ToList();
-                }
-            }
-            catch (System.Exception e)
-            {
-                throw e;
-            }
-        }
-        public static void update(int number, Room room)
-        {
-            try
-            {
-                using (Context context = new Context())
-                {
-                    Room oldRoom = context.Rooms.Find(number);
-                    oldRoom.Floor = room.Floor;
-                    oldRoom.Number = room.Number;
-                    oldRoom.Description = room.Description;
-                    oldRoom.Value = room.Value;
+                    context.Cleans.Add(clean);
                     context.SaveChanges();
                 }
             }
@@ -83,14 +36,46 @@ namespace Models
             }
         }
 
-        public static void updateValue(int number, double value)
+        public static List<Clean> index()
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Room oldRoom = context.Rooms.Find(number);
-                    oldRoom.Value = value;
+                    return context.Cleans.ToList();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static Clean show(int id)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    return context.Cleans.Find(id);
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void update(int id, Clean clean)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    Clean oldClean = context.Cleans.Find(id);
+                    oldClean.RoomNumber = clean.RoomNumber;
+                    oldClean.EmployeeId = clean.EmployeeId;
+                    oldClean.Date = clean.Date;
                     context.SaveChanges();
                 }
             }
@@ -99,15 +84,30 @@ namespace Models
                 throw e;
             }
         }
-        public static void destroy(int number)
+
+        public static void destroy(int id)
         {
             try
             {
                 using (Context context = new Context())
                 {
-                    Room room = context.Rooms.Find(number);
-                    context.Rooms.Remove(room);
+                    Clean clean = context.Cleans.Find(id);
+                    context.Cleans.Remove(clean);
                     context.SaveChanges();
+                }
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+         public static Models.Clean findByNumberRoom(int numberRoom)
+        {
+            try
+            {
+                using (Context context = new Context())
+                {
+                    return context.Cleans.FirstOrDefault(cls => cls.RoomNumber == numberRoom);
                 }
             }
             catch (System.Exception e)
