@@ -1,0 +1,25 @@
+name: SecurityPipeline
+
+on: [push]
+
+jobs:
+  horusec-security:
+    name: Horusec Security Scan
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Install Horusec
+      run: |
+        curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | sh -
+      
+    - name: Run Horusec Scan
+      run: |
+        ./horusec start -p . -r ~/horusec-results.json
+      
+    - name: Upload Horusec Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: horusec-results
+        path: ~/horusec-results.json
